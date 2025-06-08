@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keybind Mapper</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="toolbar" role="toolbar" aria-label="Main toolbar">
+    <button onclick="toggleTheme()" aria-label="Toggle light and dark theme">Toggle Theme</button>
+    <button onclick="exportKeybinds()" aria-label="Export keybindings to file">Export</button>
+    <button onclick="importKeybinds()" aria-label="Import keybindings from file">Import</button>
+    <button onclick="resetKeybinds()" aria-label="Reset all keybindings">Reset</button>
+  </div>
+
+  <h1>Keybind Tracker</h1>
+  <div class="keyboard" id="keyboard" role="grid" aria-label="Keyboard layout"></div>
+  <input type="file" id="importFile" style="display:none" accept="application/json" aria-hidden="true" />
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display:none">
+    <div class="modal-content">
+      <h3 id="modal-title">Set Binding</h3>
+      <label for="bindInput">Key Binding</label>
+      <input type="text" id="bindInput" />
+      <div style="display:flex; justify-content: space-between; gap: 10px;">
+        <button onclick="deleteBinding()">Clear</button>
+        <div style="display:flex; justify-content: flex-end; gap: 10px;">
+          <button onclick="closeModal()">Cancel</button>
+          <button onclick="saveBinding()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

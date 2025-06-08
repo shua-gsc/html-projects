@@ -1,0 +1,137 @@
+:root {
+    --bg-color: #1e1e1e;
+    --text-color: #ffffff;
+    --key-bg: #2e2e2e;
+    --key-border: #555;
+    --key-used: #4caf50;
+}
+
+body.light {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --key-bg: #f0f0f0;
+    --key-border: #ccc;
+    --key-used: #2196f3;
+}
+
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.toolbar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(30, 20px);  /* Doubled columns for finer control */
+    gap: 6px;
+    justify-content: start;
+}
+
+.key {
+    height: 46px;
+    grid-column: span 2;
+    background-color: var(--key-bg);
+    color: var(--text-color);
+    border: 1px solid var(--key-border);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.key[data-size="1.25"] { grid-column: span 2; }
+.key[data-size="1.5"] { grid-column: span 2; }
+.key[data-size="1.75"] { grid-column: span 2; }
+.key[data-size="2"] { grid-column: span 3; }
+.key[data-size="2.25"] { grid-column: span 3; }
+.key[data-size="2.75"] { grid-column: span 4; }
+.key[data-size="6.25"] { grid-column: span 8; }
+
+.key.used {
+    background-color: var(--key-used);
+}
+
+.row-spacer {
+    height: 6px;  /* Match the gap size */
+    grid-column: 1 / -1;  /* Span all columns */
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    top: -10px;
+    background-color: #333;
+    color: white;
+    padding: 2px 6px;
+    font-size: 12px;
+    border: 1px solid var(--key-border);
+    border-radius: 3px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.key:hover .tooltip {
+    display: block;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+}
+
+.modal input {
+    padding: 8px;
+    border: 1px solid var(--key-border);
+    border-radius: 4px;
+    background: var(--key-bg);
+    color: var(--text-color);
+}
+
+.modal button {
+    margin-top: 10px;
+}
