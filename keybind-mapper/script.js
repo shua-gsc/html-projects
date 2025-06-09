@@ -1,36 +1,33 @@
-const keyDisplayMap = {
-    'backslash': '\\',
-    // 'backtick': '`',
-    // 'backspace': 'Back',
-    // 'leftshift': 'LShift',
-    // 'rightshift': 'RShift',
-    // 'singlequote': '\'',
-    // ...etc
-};
-
 const keys = [
-    // ...first row...
-    ['`','1','2','3','4','5','6','7','8','9','0','-','=','Back'],
-    ['Tab','Q','W','E','R','T','Y','U','I','O','P','[',']','backslash'], // backslash using keydisplaymap to display '\'
-    ['Caps','A','S','D','F','G','H','J','K','L',';','\'','Enter'],
-    ['LShift','Z','X','C','V','B','N','M',',','.','/','RShift'],  
-    ['Ctrl','Win','Alt','Space','Alt','Fn','Menu','Ctrl']
+	// ...first row...
+	['`','1','2','3','4','5','6','7','8','9','0','-','=','backspace'],
+	['Tab','Q','W','E','R','T','Y','U','I','O','P','[',']','backslash'], // backslash using keyDisplayOverrides to display '\'
+	['Caps','A','S','D','F','G','H','J','K','L',';','\'','Enter'],
+	['lshift','Z','X','C','V','B','N','M',',','.','/','rshift'],  
+	['Ctrl','Win','Alt','Space','Alt','Fn','Menu','Ctrl']
 ];
 
-const keySizes = {
-    'backslash': 1.5, // Added backslash sizing
-    'Back': 2,        
-    'Tab': 1.5,       
-    'Caps': 1.75,     
-    'Enter': 2.25,    
-    'LShift': 2.25,   
-    'RShift': 2.75,   
-    'Ctrl': 1.5,      
-    'Win': 1.25,      
-    'Alt': 1.25,      
-    'Space': 6.25,    
-    'Fn': 1.25,       
-    'Menu': 1.25      
+const keyDisplayOverrides = {
+	'backslash': '\\',
+	'backspace': 'Back',
+	'lshift' : "Shift",
+	'rshift' : "Shift"
+};
+
+const keySizeOverrides = {
+	'backspace': 2.75,   
+	'backslash': 2.25, // Added backslash sizing
+	'lshift': 2.75,   
+	'rshift': 2.75,        
+	'Tab': 2.25,       
+	'Caps': 2.75,     
+	'Enter': 2.75,    
+	'Ctrl': 2.25,      
+	'Win': 2.25,      
+	'Alt': 2.25,      
+	'Space': 6.25,    
+	'Fn': 2.25,       
+	'Menu': 2.25     
 };
 
 const keyboard = document.getElementById('keyboard');
@@ -41,159 +38,159 @@ let currentKeyDiv = null;
 const bindings = {};
 
 keys.forEach((row) => {
-    row.forEach(key => {
-        const keyDiv = document.createElement('div');
-        keyDiv.classList.add('key');
-        keyDiv.dataset.key = key;
-        keyDiv.innerText = keyDisplayMap[key] || key;
-        keyDiv.setAttribute('role', 'button');
-        keyDiv.setAttribute('tabindex', '0');
-        keyDiv.setAttribute('aria-label', `Key ${key}`);
-        //keyDiv.innerText = key;
+	row.forEach(key => {
+		const keyDiv = document.createElement('div');
+		keyDiv.classList.add('key');
+		keyDiv.dataset.key = key;
+		keyDiv.innerText = keyDisplayOverrides[key] || key;
+		keyDiv.setAttribute('role', 'button');
+		keyDiv.setAttribute('tabindex', '0');
+		keyDiv.setAttribute('aria-label', `Key ${key}`);
+		//keyDiv.innerText = key;
 
-        if (keySizes[key]) keyDiv.dataset.size = keySizes[key];
+		if (keySizeOverrides[key]) keyDiv.dataset.size = keySizeOverrides[key];
 
-        const tooltip = document.createElement('div');
-        tooltip.classList.add('tooltip');
-        tooltip.innerText = '';
-        keyDiv.appendChild(tooltip);
+		const tooltip = document.createElement('div');
+		tooltip.classList.add('tooltip');
+		tooltip.innerText = '';
+		keyDiv.appendChild(tooltip);
 
-        keyDiv.addEventListener('click', () => openModal(keyDiv));
-        keyDiv.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openModal(keyDiv);
-            }
-        });
+		keyDiv.addEventListener('click', () => openModal(keyDiv));
+		keyDiv.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				openModal(keyDiv);
+			}
+		});
 
-        keyboard.appendChild(keyDiv);
-    });
-    
-    const spacer = document.createElement('div');
-    spacer.classList.add('row-spacer');
-    spacer.style.gridColumn = '1 / -1';  // Span full width
-    keyboard.appendChild(spacer);
+		keyboard.appendChild(keyDiv);
+	});
+		
+	const spacer = document.createElement('div');
+	spacer.classList.add('row-spacer');
+	spacer.style.gridColumn = '1 / -1';  // Span full width
+	keyboard.appendChild(spacer);
 });
 
 function openModal(keyDiv) {
-    modal.style.display = 'flex';
-    modalTitle.innerText = `Bind for [${keyDiv.dataset.key}]`;
-    bindInput.value = keyDiv.querySelector('.tooltip').innerText;
-    currentKeyDiv = keyDiv;
-    setTimeout(() => bindInput.focus(), 10);
-    trapFocus(modal);
+	modal.style.display = 'flex';
+	modalTitle.innerText = `Bind for [${keyDiv.dataset.key}]`;
+	bindInput.value = keyDiv.querySelector('.tooltip').innerText;
+	currentKeyDiv = keyDiv;
+	setTimeout(() => bindInput.focus(), 10);
+	trapFocus(modal);
 }
 
 function closeModal() {
-    modal.style.display = 'none';
-    bindInput.value = '';
-    currentKeyDiv = null;
+	modal.style.display = 'none';
+	bindInput.value = '';
+	currentKeyDiv = null;
 }
 
 function saveBinding() {
-    const value = bindInput.value.trim();
-    if (!currentKeyDiv) return;
+	const value = bindInput.value.trim();
+	if (!currentKeyDiv) return;
 
-    const key = currentKeyDiv.dataset.key;
-    currentKeyDiv.querySelector('.tooltip').innerText = value;
-    currentKeyDiv.classList.toggle('used', !!value);
-    bindings[key] = value;
+	const key = currentKeyDiv.dataset.key;
+	currentKeyDiv.querySelector('.tooltip').innerText = value;
+	currentKeyDiv.classList.toggle('used', !!value);
+	bindings[key] = value;
 
-    closeModal();
+	closeModal();
 }
 
 function deleteBinding() {
-    if (!currentKeyDiv) return;
+	if (!currentKeyDiv) return;
 
-    const key = currentKeyDiv.dataset.key;
-    currentKeyDiv.querySelector('.tooltip').innerText = '';
-    currentKeyDiv.classList.remove('used');
-    bindings[key] = '';
+	const key = currentKeyDiv.dataset.key;
+	currentKeyDiv.querySelector('.tooltip').innerText = '';
+	currentKeyDiv.classList.remove('used');
+	bindings[key] = '';
 
-    closeModal();
+	closeModal();
 }
 
 function toggleTheme() {
-    document.body.classList.toggle('light');
+	document.body.classList.toggle('light');
 }
 
 function exportKeybinds() {
-    const data = JSON.stringify(bindings, null, 2);
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'keybinds.json';
-    a.click();
-    URL.revokeObjectURL(url);
+	const data = JSON.stringify(bindings, null, 2);
+	const blob = new Blob([data], { type: 'application/json' });
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement('a');
+	a.href = url;
+	a.download = 'keybinds.json';
+	a.click();
+	URL.revokeObjectURL(url);
 }
 
 function importKeybinds() {
-    document.getElementById('importFile').click();
+	document.getElementById('importFile').click();
 }
 
 function resetKeybinds() {
-    if (confirm('Are you sure you want to reset all keybindings?')) {
-        Object.keys(bindings).forEach(key => {
-            const el = document.querySelector(`.key[data-key="${key}"]`);
-            if (el) {
-                el.querySelector('.tooltip').innerText = '';
-                el.classList.remove('used');
-                delete bindings[key];
-            }
-        });
-    }
+	if (confirm('Are you sure you want to reset all keybindings?')) {
+		Object.keys(bindings).forEach(key => {
+			const el = document.querySelector(`.key[data-key="${key}"]`);
+			if (el) {
+				el.querySelector('.tooltip').innerText = '';
+				el.classList.remove('used');
+				delete bindings[key];
+			}
+		});
+	}
 }
 
 document.getElementById('importFile').addEventListener('change', function () {
-    const file = this.files[0];
-    if (!file) return;
+	const file = this.files[0];
+	if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        try {
-            const imported = JSON.parse(e.target.result);
-            Object.entries(imported).forEach(([key, binding]) => {
-                const el = document.querySelector(`.key[data-key="${key}"]`);
-                if (el) {
-                    el.querySelector('.tooltip').innerText = binding;
-                    el.classList.toggle('used', !!binding);
-                    bindings[key] = binding;
-                }
-            });
-        } catch {
-            alert('Invalid file format');
-        }
-    };
-    reader.readAsText(file);
+	const reader = new FileReader();
+	reader.onload = function (e) {
+		try {
+			const imported = JSON.parse(e.target.result);
+			Object.entries(imported).forEach(([key, binding]) => {
+				const el = document.querySelector(`.key[data-key="${key}"]`);
+				if (el) {
+					el.querySelector('.tooltip').innerText = binding;
+					el.classList.toggle('used', !!binding);
+					bindings[key] = binding;
+				}
+			});
+		} catch {
+			alert('Invalid file format');
+		}
+	};
+	reader.readAsText(file);
 });
 
 function trapFocus(modalElement) {
-    const focusable = modalElement.querySelectorAll('input, button');
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
+	const focusable = modalElement.querySelectorAll('input, button');
+	const first = focusable[0];
+	const last = focusable[focusable.length - 1];
 
-    modalElement.addEventListener('click', function (e) {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
+	modalElement.addEventListener('click', function (e) {
+		if (e.target === modal) {
+			closeModal();
+		}
+	});
 
-    modalElement.addEventListener('keydown', function (e) {
-        if (e.key === 'Tab') {
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
-        } else if (e.key === 'Enter') {
-            saveBinding();  
-        } else if (e.key === 'Delete') {
-            deleteBinding();
-        } else if (e.key === 'Escape') {
-            closeModal();
-        }
-    });
+	modalElement.addEventListener('keydown', function (e) {
+		if (e.key === 'Tab') {
+			if (e.shiftKey && document.activeElement === first) {
+				e.preventDefault();
+				last.focus();
+			} else if (!e.shiftKey && document.activeElement === last) {
+				e.preventDefault();
+				first.focus();
+			}
+		} else if (e.key === 'Enter') {
+			saveBinding();  
+		} else if (e.key === 'Delete') {
+			deleteBinding();
+		} else if (e.key === 'Escape') {
+			closeModal();
+		}
+	});
 }
