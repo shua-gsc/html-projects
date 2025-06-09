@@ -74,7 +74,8 @@ keys.forEach((row) => {
 
 function openModal(keyDiv) {
 	modal.style.display = 'flex';
-	modalTitle.innerText = `Bind for [${keyDiv.dataset.key}]`;
+  const keyName = keyDisplayOverrides[keyDiv.dataset.key] || keyDiv.dataset.key;
+	modalTitle.innerText = `Bind for [ ${keyName} ]`;
 	bindInput.value = keyDiv.querySelector('.tooltip').innerText;
 	currentKeyDiv = keyDiv;
 	setTimeout(() => bindInput.focus(), 10);
