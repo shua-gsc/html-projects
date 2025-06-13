@@ -1,33 +1,33 @@
 const keys = [
 	// ...first row...
-	['`','1','2','3','4','5','6','7','8','9','0','-','=','backspace'],
-	['Tab','Q','W','E','R','T','Y','U','I','O','P','[',']','backslash'], // backslash using keyDisplayOverrides to display '\'
+	['`','1','2','3','4','5','6','7','8','9','0','-','=','_backspace'],
+	['Tab','Q','W','E','R','T','Y','U','I','O','P','[',']','_backslash'], 
 	['Caps','A','S','D','F','G','H','J','K','L',';','\'','Enter'],
-	['lshift','Z','X','C','V','B','N','M',',','.','/','rshift'],  
+	['_lshift','Z','X','C','V','B','N','M',',','.','/','_rshift'],  
 	['Ctrl','Win','Alt','Space','Alt','Fn','Menu','Ctrl']
 ];
 
 const keyDisplayOverrides = {
-	'backslash': '\\',
-	'backspace': 'Back',
-	'lshift' : "Shift",
-	'rshift' : "Shift"
+	'_backslash': '\\',
+	'_backspace': 'Back',
+	'_lshift' : "Shift",
+	'_rshift' : "Shift"
 };
 
 const keySizeOverrides = {
-	'backspace': 2.75,   
-	'backslash': 2.25, // Added backslash sizing
-	'lshift': 2.75,   
-	'rshift': 2.75,        
-	'Tab': 2.25,       
-	'Caps': 2.75,     
-	'Enter': 2.75,    
-	'Ctrl': 2.25,      
-	'Win': 2.25,      
-	'Alt': 2.25,      
-	'Space': 6.25,    
-	'Fn': 2.25,       
-	'Menu': 2.25     
+	'_backspace': 3,   
+	'_backslash': 1,
+	'Tab': 1,       
+	'Caps': 3,     
+	'Enter': 3,    
+	'_lshift': 5,   
+	'_rshift': 5,        
+	'Ctrl': 1,      
+	'Win': 1,      
+	'Alt': 1,      
+	'Space': 8,    
+	'Fn': 1,       
+	'Menu': 1     
 };
 
 const keyboard = document.getElementById('keyboard');
@@ -48,7 +48,8 @@ keys.forEach((row) => {
 		keyDiv.setAttribute('aria-label', `Key ${key}`);
 		//keyDiv.innerText = key;
 
-		if (keySizeOverrides[key]) keyDiv.dataset.size = keySizeOverrides[key];
+		//if (keySizeOverrides[key]) keyDiv.dataset.size = keySizeOverrides[key];
+		keyDiv.dataset.size = keySizeOverrides[key] || keyDiv.size;
 
 		const tooltip = document.createElement('div');
 		tooltip.classList.add('tooltip');

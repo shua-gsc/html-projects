@@ -76,13 +76,22 @@ button {
 	transition: background-color 0.2s;
 }
 
-.key[data-size="1.25"] { grid-column: span 2; }
+/* .key[data-size="1.25"] { grid-column: span 2; }
 .key[data-size="1.5"] { grid-column: span 2; }
 .key[data-size="1.75"] { grid-column: span 2; }
 .key[data-size="2"] { grid-column: span 3; }
 .key[data-size="2.25"] { grid-column: span 3; }
 .key[data-size="2.75"] { grid-column: span 4; }
-.key[data-size="6.25"] { grid-column: span 8; }
+.key[data-size="6.25"] { grid-column: span 8; } */
+
+.key[data-size="1"] { grid-column: span 3; }
+.key[data-size="2"] { grid-column: span 3.5; }
+.key[data-size="3"] { grid-column: span 4; }
+.key[data-size="4"] { grid-column: span 4.5; }
+.key[data-size="5"] { grid-column: span 5; }
+.key[data-size="6"] { grid-column: span 5.5; }
+.key[data-size="8"] { grid-column: span 9; }
+
 
 .key.used {
 	background-color: var(--key-used);
