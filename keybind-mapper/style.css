@@ -46,8 +46,8 @@ button {
 }
 
 .keyboard {
-	display: grid; /* TODO: try to implement flex */
-	grid-template-columns: repeat(30, 20px);  /* Doubled columns for finer control */
+	display: grid; /* TODO: implement flex */
+	grid-template-columns: repeat(30, 20px);  
 	gap: 6px;
 	justify-content: start;
 	position: relative;
@@ -75,14 +75,6 @@ button {
 	position: relative;
 	transition: background-color 0.2s;
 }
-
-/* .key[data-size="1.25"] { grid-column: span 2; }
-.key[data-size="1.5"] { grid-column: span 2; }
-.key[data-size="1.75"] { grid-column: span 2; }
-.key[data-size="2"] { grid-column: span 3; }
-.key[data-size="2.25"] { grid-column: span 3; }
-.key[data-size="2.75"] { grid-column: span 4; }
-.key[data-size="6.25"] { grid-column: span 8; } */
 
 .key[data-size="1"] { grid-column: span 3; }
 .key[data-size="2"] { grid-column: span 3.5; }
