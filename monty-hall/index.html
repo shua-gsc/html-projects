@@ -1,0 +1,33 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monty Hall Problem Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Monty Hall Problem Simulator</h1>
+  <p id="instructions">Pick a door to start!</p>
+  <div class="doors">
+    <div id="door1" class="door" onclick="selectDoor(1)">
+      <div class="door-image">🚪</div>
+      <div class="door-content hidden">?</div>
+    </div>
+    <div id="door2" class="door" onclick="selectDoor(2)">
+      <div class="door-image">🚪</div>
+      <div class="door-content hidden">?</div>
+    </div>
+    <div id="door3" class="door" onclick="selectDoor(3)">
+      <div class="door-image">🚪</div>
+      <div class="door-content hidden">?</div>
+    </div>
+  </div>
+  <button id="switchBtn" onclick="switchDoor()">Switch Door</button>
+  <button id="stayBtn" onclick="stayDoor()">Stay with Current Door</button>
+  <div class="stats">
+    <p id="result"></p>
+    <p>Wins: <span id="wins">0</span> | Losses: <span id="losses">0</span></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
