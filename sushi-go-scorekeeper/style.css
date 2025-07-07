@@ -1,0 +1,359 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(45deg, #ff6b6b, #ffa726);
+    color: white;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0;
+}
+
+.game-setup {
+    padding: 30px;
+    text-align: center;
+    background: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.game-setup label {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-right: 15px;
+}
+
+.game-setup select {
+    padding: 10px 15px;
+    font-size: 1.1em;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.game-setup select:hover {
+    border-color: #4ecdc4;
+}
+
+.game-setup select:focus {
+    outline: none;
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+}
+
+.scorecard {
+    padding: 30px;
+    display: none;
+}
+
+.scorecard.active {
+    display: block;
+}
+
+.score-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.score-table th,
+.score-table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+}
+
+.score-table th {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.round-label {
+    background: #f8f9fa !important;
+    color: #333 !important;
+    font-weight: bold;
+    text-align: left !important;
+    padding-left: 20px !important;
+}
+
+.player-name {
+    width: 150px;
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.player-name:focus {
+    outline: none;
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+}
+
+.score-input {
+    width: 80px;
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.score-input:focus {
+    outline: none;
+    border-color: #4ecdc4;
+    box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
+}
+
+.total-score {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #333;
+    background: #f8f9fa;
+    padding: 15px !important;
+}
+
+.first-place {
+    background: linear-gradient(45deg, #ffd700, #ffed4e) !important;
+    color: #333 !important;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.first-place .player-name {
+    background: rgba(255, 215, 0, 0.3);
+    border-color: #ffd700;
+    font-weight: bold;
+}
+
+.first-place .total-score {
+    background: rgba(255, 215, 0, 0.3) !important;
+    border: 2px solid #ffd700 !important;
+    border-radius: 8px;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+}
+
+.player-column {
+    position: relative;
+}
+
+.crown {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5em;
+    z-index: 10;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        border-radius: 10px;
+    }
+    
+    h1 {
+        font-size: 2em;
+        padding: 20px;
+    }
+    
+    .game-setup,
+    .scorecard {
+        padding: 20px;
+    }
+    
+    .score-table th,
+    .score-table td {
+        padding: 10px 5px;
+        font-size: 0.9em;
+    }
+    
+    .player-name {
+        width: 120px;
+        font-size: 0.9em;
+    }
+    
+    .score-input {
+        width: 60px;
+        font-size: 0.9em;
+    }
+}
+
+.maki-controls {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.maki-controls h4 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 0.9em;
+}
+
+.maki-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.maki-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85em;
+}
+
+.maki-checkbox input[type="checkbox"] {
+    margin: 0;
+    transform: scale(1.1);
+}
+
+.maki-checkbox label {
+    cursor: pointer;
+    color: #555;
+}
+
+.base-score-label {
+    font-size: 0.8em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.pudding-controls {
+    margin-top: 10px;
+    padding: 15px;
+    background: #fff3cd;
+    border-radius: 8px;
+    border: 2px solid #ffeaa7;
+}
+
+.pudding-controls h4 {
+    margin: 0 0 12px 0;
+    color: #333;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.pudding-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.pudding-row:last-child {
+    margin-bottom: 0;
+}
+
+.pudding-label {
+    font-weight: bold;
+    color: #856404;
+    font-size: 0.85em;
+    min-width: 80px;
+}
+
+.pudding-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.pudding-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8em;
+    padding: 2px 6px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.pudding-checkbox input[type="checkbox"] {
+    transform: scale(0.9);
+}
+
+.pudding-checkbox label {
+    cursor: pointer;
+    color: #333;
+}
+
+.pudding-points {
+    font-size: 0.75em;
+    color: #28a745;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.maki-points {
+    font-size: 0.75em;
+    color: #28a745;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.round-header {
+    position: relative;
+}
+
+.show-pudding-btn {
+    margin: 20px auto;
+    display: block;
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #ff6b6b, #ffa726);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.show-pudding-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}

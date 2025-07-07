@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushi Go Scorekeeper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🍣 Sushi Go Scorekeeper</h1>
+        
+        <div class="game-setup">
+            <label for="player-count">Number of Players:</label>
+            <select id="player-count" onchange="setupGame()">
+                <option value="2">2 Players</option>
+                <option value="3">3 Players</option>
+                <option value="4">4 Players</option>
+                <option value="5">5 Players</option>
+            </select>
+        </div>
+
+        <div class="scorecard" id="scorecard">
+            <!-- Dynamic content will be generated here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
