@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Flags Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 World Flags Quiz</h1>
+        </header>
+
+        <div class="quiz-container">
+            <div class="progress-section">
+                <span id="progress">0 / 195</span>
+            </div>
+
+            <div class="flag-display">
+                <img id="flag-image" src="" alt="Flag" />
+            </div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="input-section">
+                <input type="text" id="country-input" placeholder="Enter country name..." autocomplete="off" />
+            </div>
+
+            <div class="controls">
+                <button id="prev-btn" class="nav-btn">← Prev</button>
+                <button id="next-btn" class="nav-btn">Next →</button>
+            </div>
+
+            <div class="quiz-info">
+                <p>...</p>
+            </div>
+        </div>
+
+        <div class="completion-screen" id="completion-screen" style="display: none;">
+            <h2>🎉 Quiz Complete!</h2>
+            <p>You've correctly identified all <span id="final-score">195</span> flags!</p>
+            <button id="restart-btn" class="action-btn">Start New Quiz</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
