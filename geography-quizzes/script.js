@@ -1,17 +1,18 @@
 // World countries data with flag URLs and accepted names
+// NOTE: Useful Reference: https://unterm.un.org/unterm2/en/country
 const countries = [
     { name: "Afghanistan", code: "af", alternatives: [] },
     { name: "Albania", code: "al", alternatives: [] },
     { name: "Algeria", code: "dz", alternatives: [] },
     { name: "Andorra", code: "ad", alternatives: [] },
     { name: "Angola", code: "ao", alternatives: [] },
-    { name: "Antigua and Barbuda", code: "ag", alternatives: ["antigua & barbuda", "antigua barbuda"] },
+    { name: "Antigua & Barbuda", code: "ag", alternatives: [] },
     { name: "Argentina", code: "ar", alternatives: [] },
     { name: "Armenia", code: "am", alternatives: [] },
     { name: "Australia", code: "au", alternatives: [] },
     { name: "Austria", code: "at", alternatives: [] },
     { name: "Azerbaijan", code: "az", alternatives: [] },
-    { name: "Bahamas", code: "bs", alternatives: ["the bahamas"] },
+    { name: "The Bahamas", code: "bs", alternatives: ["bahamas"] },
     { name: "Bahrain", code: "bh", alternatives: [] },
     { name: "Bangladesh", code: "bd", alternatives: [] },
     { name: "Barbados", code: "bb", alternatives: [] },
@@ -21,7 +22,7 @@ const countries = [
     { name: "Benin", code: "bj", alternatives: [] },
     { name: "Bhutan", code: "bt", alternatives: [] },
     { name: "Bolivia", code: "bo", alternatives: [] },
-    { name: "Bosnia and Herzegovina", code: "ba", alternatives: ["bosnia & herzegovina", "bosnia herzegovina"] },
+    { name: "Bosnia & Herzegovina", code: "ba", alternatives: [] },
     { name: "Botswana", code: "bw", alternatives: [] },
     { name: "Brazil", code: "br", alternatives: [] },
     { name: "Brunei", code: "bn", alternatives: [] },
@@ -38,18 +39,17 @@ const countries = [
     { name: "China", code: "cn", alternatives: [] },
     { name: "Colombia", code: "co", alternatives: [] },
     { name: "Comoros", code: "km", alternatives: [] },
-    { name: "Congo", code: "cg", alternatives: ["republic of the congo"] },
+    { name: "Republic of the Congo", code: "cg", alternatives: ["roc", "congo republic", "congo-brazzaville"] },
     { name: "Costa Rica", code: "cr", alternatives: [] },
     { name: "Croatia", code: "hr", alternatives: [] },
     { name: "Cuba", code: "cu", alternatives: [] },
     { name: "Cyprus", code: "cy", alternatives: [] },
     { name: "Czech Republic", code: "cz", alternatives: ["czechia"] },
-    { name: "Democratic Republic of the Congo", code: "cd", alternatives: ["dr congo", "drc"] },
+    { name: "Democratic Republic of the Congo", code: "cd", alternatives: ["drc", "dr congo", "congo-kinshasha"] },
     { name: "Denmark", code: "dk", alternatives: [] },
     { name: "Djibouti", code: "dj", alternatives: [] },
     { name: "Dominica", code: "dm", alternatives: [] },
     { name: "Dominican Republic", code: "do", alternatives: [] },
-    { name: "East Timor", code: "tl", alternatives: ["timor-leste"] },
     { name: "Ecuador", code: "ec", alternatives: [] },
     { name: "Egypt", code: "eg", alternatives: [] },
     { name: "El Salvador", code: "sv", alternatives: ["salvador"] },
@@ -62,7 +62,7 @@ const countries = [
     { name: "Finland", code: "fi", alternatives: [] },
     { name: "France", code: "fr", alternatives: [] },
     { name: "Gabon", code: "ga", alternatives: [] },
-    { name: "Gambia", code: "gm", alternatives: ["the gambia"] },
+    { name: "The Gambia", code: "gm", alternatives: [] },
     { name: "Georgia", code: "ge", alternatives: [] },
     { name: "Germany", code: "de", alternatives: [] },
     { name: "Ghana", code: "gh", alternatives: [] },
@@ -70,7 +70,7 @@ const countries = [
     { name: "Grenada", code: "gd", alternatives: [] },
     { name: "Guatemala", code: "gt", alternatives: [] },
     { name: "Guinea", code: "gn", alternatives: [] },
-    { name: "Guinea-Bissau", code: "gw", alternatives: ["guinea bissau"] },
+    { name: "Guinea-Bissau", code: "gw", alternatives: [] },
     { name: "Guyana", code: "gy", alternatives: [] },
     { name: "Haiti", code: "ht", alternatives: [] },
     { name: "Honduras", code: "hn", alternatives: [] },
@@ -83,14 +83,13 @@ const countries = [
     { name: "Ireland", code: "ie", alternatives: [] },
     { name: "Israel", code: "il", alternatives: [] },
     { name: "Italy", code: "it", alternatives: [] },
-    { name: "Ivory Coast", code: "ci", alternatives: ["cote d'ivoire", "côte d'ivoire", "cote divoire"] },
+    { name: "Côte d'Ivoire", code: "ci", alternatives: ["cote d'ivoire", "ivory coast"] },
     { name: "Jamaica", code: "jm", alternatives: [] },
     { name: "Japan", code: "jp", alternatives: [] },
     { name: "Jordan", code: "jo", alternatives: [] },
     { name: "Kazakhstan", code: "kz", alternatives: [] },
     { name: "Kenya", code: "ke", alternatives: [] },
     { name: "Kiribati", code: "ki", alternatives: [] },
-    { name: "Kosovo", code: "xk", alternatives: [] },
     { name: "Kuwait", code: "kw", alternatives: [] },
     { name: "Kyrgyzstan", code: "kg", alternatives: [] },
     { name: "Laos", code: "la", alternatives: [] },
@@ -129,7 +128,7 @@ const countries = [
     { name: "Niger", code: "ne", alternatives: [] },
     { name: "Nigeria", code: "ng", alternatives: [] },
     { name: "North Korea", code: "kp", alternatives: [] },
-    { name: "North Macedonia", code: "mk", alternatives: ["macedonia"] },
+    { name: "North Macedonia", code: "mk", alternatives: [] },
     { name: "Norway", code: "no", alternatives: [] },
     { name: "Oman", code: "om", alternatives: [] },
     { name: "Pakistan", code: "pk", alternatives: [] },
@@ -146,12 +145,12 @@ const countries = [
     { name: "Romania", code: "ro", alternatives: [] },
     { name: "Russia", code: "ru", alternatives: [] },
     { name: "Rwanda", code: "rw", alternatives: [] },
-    { name: "Saint Kitts and Nevis", code: "kn", alternatives: ["st kitts and nevis"] },
-    { name: "Saint Lucia", code: "lc", alternatives: ["st lucia"] },
-    { name: "Saint Vincent and the Grenadines", code: "vc", alternatives: ["st vincent and the grenadines"] },
+    { name: "Saint Kitts & Nevis", code: "kn", alternatives: [] },
+    { name: "Saint Lucia", code: "lc", alternatives: [] },
+    { name: "Saint Vincent & the Grenadines", code: "vc", alternatives: ["svg"] },
     { name: "Samoa", code: "ws", alternatives: [] },
     { name: "San Marino", code: "sm", alternatives: [] },
-    { name: "Sao Tome and Principe", code: "st", alternatives: [] },
+    { name: "Sao Tome & Principe", code: "st", alternatives: [] },
     { name: "Saudi Arabia", code: "sa", alternatives: [] },
     { name: "Senegal", code: "sn", alternatives: [] },
     { name: "Serbia", code: "rs", alternatives: [] },
@@ -172,13 +171,13 @@ const countries = [
     { name: "Sweden", code: "se", alternatives: [] },
     { name: "Switzerland", code: "ch", alternatives: [] },
     { name: "Syria", code: "sy", alternatives: [] },
-    { name: "Taiwan", code: "tw", alternatives: [] },
     { name: "Tajikistan", code: "tj", alternatives: [] },
     { name: "Tanzania", code: "tz", alternatives: [] },
     { name: "Thailand", code: "th", alternatives: [] },
+    { name: "Timor-Leste", code: "tl", alternatives: ["east timor", "timorleste", "democratic republic of timor-leste"] },
     { name: "Togo", code: "tg", alternatives: [] },
     { name: "Tonga", code: "to", alternatives: [] },
-    { name: "Trinidad and Tobago", code: "tt", alternatives: ["trinidad & tobago"] },
+    { name: "Trinidad & Tobago", code: "tt", alternatives: [] },
     { name: "Tunisia", code: "tn", alternatives: [] },
     { name: "Turkey", code: "tr", alternatives: [] },
     { name: "Turkmenistan", code: "tm", alternatives: [] },
@@ -186,8 +185,8 @@ const countries = [
     { name: "Uganda", code: "ug", alternatives: [] },
     { name: "Ukraine", code: "ua", alternatives: [] },
     { name: "United Arab Emirates", code: "ae", alternatives: ["uae"] },
-    { name: "United Kingdom", code: "gb", alternatives: ["uk", "britain"] },
-    { name: "United States", code: "us", alternatives: ["usa", "america"] },
+    { name: "United Kingdom", code: "gb", alternatives: ["uk", "gb", "great britain", "britain"] },
+    { name: "United States of America", code: "us", alternatives: ["usa", "america", "united states"] },
     { name: "Uruguay", code: "uy", alternatives: [] },
     { name: "Uzbekistan", code: "uz", alternatives: [] },
     { name: "Vanuatu", code: "vu", alternatives: [] },
@@ -196,12 +195,19 @@ const countries = [
     { name: "Vietnam", code: "vn", alternatives: [] },
     { name: "Yemen", code: "ye", alternatives: [] },
     { name: "Zambia", code: "zm", alternatives: [] },
-    { name: "Zimbabwe", code: "zw", alternatives: [] }
+    { name: "Zimbabwe", code: "zw", alternatives: [] },
+    { name: "Kosovo", code: "xk", alternatives: [] },
+    { name: "Taiwan", code: "tw", alternatives: [] },
+    { name: "England", code: "gb-eng", alternatives: [] },
+    { name: "Northern Ireland", code: "gb-nir", alternatives: [] },
+    { name: "Scotland", code: "gb-sct", alternatives: [] },
+    { name: "Wales", code: "gb-wls", alternatives: [] }
 ];
 
 class FlagQuiz {
     constructor() {
         this.countries = [...countries];
+        this.preprocessCountries(); // Add special case alternatives upfront
         this.currentCountryIndex = 0;
         this.score = 0;
         this.guessedCountries = new Set();
@@ -210,6 +216,32 @@ class FlagQuiz {
         this.initializeElements();
         this.setupEventListeners();
         this.startNewQuiz();
+    }
+
+    // Pre-process all countries once on load - just store normalized versions
+    preprocessCountries() {
+        this.countries.forEach(country => {
+            // Store the normalized version of the country name for fast comparison
+            country.normalizedName = this.normalizeForComparison(country.name);
+            
+            // Also normalize existing alternatives
+            country.normalizedAlternatives = country.alternatives.map(alt => 
+                this.normalizeForComparison(alt)
+            );
+        });
+    }
+
+    // Normalize a name to a standard format for comparison
+    normalizeForComparison(name) {
+        return name.toLowerCase()
+                   .replace(/^the /g, '')          // remove "the " at the beginning
+                   .replace(/saint/g, 'st')        // saint → st
+                   .replace(/st\./g, 'st')         // st. → st  
+                   .replace(/\s+and\s+/g, ' & ')   // and → &
+                   .replace(/-/g, ' ')             // replace dashes with spaces
+                   .replace(/'/g, '')              // remove apostrophes
+                   .replace(/\s+/g, ' ')           // normalize whitespace
+                   .trim();
     }
 
     initializeElements() {
@@ -315,18 +347,27 @@ class FlagQuiz {
     }
 
     checkAnswerRealtime() {
-        const userInput = this.countryInput.value.trim().toLowerCase();
+        const userInput = this.countryInput.value.trim();
         if (!userInput) return;
+
+        // Normalize user input once
+        const normalizedInput = this.normalizeForComparison(userInput);
 
         const unguessedCountries = this.getUnguessedCountries();
         const currentCountry = unguessedCountries[this.currentCountryIndex];
         
-        const isCorrect = currentCountry.name.toLowerCase() === userInput || 
-                         currentCountry.alternatives.some(alt => 
-                             alt.toLowerCase() === userInput
-                         );
+        // Simple comparison using pre-normalized values
+        if (currentCountry.normalizedName === normalizedInput) {
+            this.handleCorrectAnswer(currentCountry);
+            return;
+        }
+        
+        // Check normalized alternatives
+        const alternativeMatch = currentCountry.normalizedAlternatives.some(alt => 
+            alt === normalizedInput
+        );
 
-        if (isCorrect) {
+        if (alternativeMatch) {
             this.handleCorrectAnswer(currentCountry);
         }
     }
@@ -403,6 +444,8 @@ class FlagQuiz {
         this.completionScreen.style.display = 'block';
         document.querySelector('.quiz-container').style.display = 'none';
     }
+
+    // ...existing code...
 }
 
 // Initialize the quiz when the page loads
