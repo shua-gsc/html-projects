@@ -12,9 +12,57 @@
             <h1>🌍 World Flags Quiz</h1>
         </header>
 
-        <div class="quiz-container">
+        <!-- Category Selection Screen -->
+        <div class="category-selection" id="category-selection">
+            <h2>Choose Your Quiz Category</h2>
+            <div class="category-grid">
+                <button class="category-btn" data-category="all">
+                    <span class="category-icon">🌍</span>
+                    <span class="category-name">All Countries</span>
+                    <span class="category-count" id="count-all">201</span>
+                </button>
+                <button class="category-btn" data-category="africa">
+                    <span class="category-icon">🌍</span>
+                    <span class="category-name">Africa</span>
+                    <span class="category-count" id="count-africa">54</span>
+                </button>
+                <button class="category-btn" data-category="asia">
+                    <span class="category-icon">🌏</span>
+                    <span class="category-name">Asia</span>
+                    <span class="category-count" id="count-asia">50</span>
+                </button>
+                <button class="category-btn" data-category="europe">
+                    <span class="category-icon">🌍</span>
+                    <span class="category-name">Europe</span>
+                    <span class="category-count" id="count-europe">48</span>
+                </button>
+                <button class="category-btn" data-category="north-america">
+                    <span class="category-icon">🌎</span>
+                    <span class="category-name">North America</span>
+                    <span class="category-count" id="count-north-america">23</span>
+                </button>
+                <button class="category-btn" data-category="south-america">
+                    <span class="category-icon">🌎</span>
+                    <span class="category-name">South America</span>
+                    <span class="category-count" id="count-south-america">13</span>
+                </button>
+                <button class="category-btn" data-category="oceania">
+                    <span class="category-icon">🌏</span>
+                    <span class="category-name">Oceania</span>
+                    <span class="category-count" id="count-oceania">14</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div class="quiz-container" id="quiz-container" style="display: none;">
+            <div class="quiz-header">
+                <button id="back-to-menu" class="back-btn">← Back to Menu</button>
+                <h3 id="quiz-title">All Countries</h3>
+            </div>
+
             <div class="progress-section">
-                <span id="progress">0 / 195</span>
+                <span id="progress">0 / 201</span>
             </div>
 
             <div class="flag-display">
@@ -39,8 +87,9 @@
 
         <div class="completion-screen" id="completion-screen" style="display: none;">
             <h2>🎉 Quiz Complete!</h2>
-            <p>You've correctly identified all <span id="final-score">195</span> flags!</p>
-            <button id="restart-btn" class="action-btn">Start New Quiz</button>
+            <p>You've correctly identified all <span id="final-score">201</span> flags!</p>
+            <button id="restart-btn" class="action-btn">Try Again</button>
+            <button id="menu-btn" class="action-btn">Back to Menu</button>
         </div>
     </div>
 

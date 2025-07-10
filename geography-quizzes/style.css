@@ -223,6 +223,94 @@ header h1 {
     }
 }
 
+/* Category Selection Styles */
+.category-selection {
+    padding: 40px;
+}
+
+.category-selection h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.category-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 140px;
+    font-family: inherit;
+}
+
+.category-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.category-btn:active {
+    transform: translateY(-2px);
+}
+
+.category-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.category-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.category-count {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+/* Quiz Header */
+.quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #5a6268;
+}
+
+#quiz-title {
+    color: #333;
+    font-size: 1.5em;
+    margin: 0;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
@@ -265,5 +353,19 @@ header h1 {
         width: 100%;
         max-width: 200px;
         margin: 0 auto;
+    }
+    
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .category-btn {
+        min-height: 100px;
+    }
+    
+    .quiz-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
     }
 }

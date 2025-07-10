@@ -1,4 +1,4 @@
-// World countries data with flag URLs and accepted names
+// World countries data with flag URLs, accepted names, and regions
 // NOTE: Useful Reference: https://unterm.un.org/unterm2/en/country
 const countries = [
     { name: "Afghanistan", code: "af", alternatives: [] },
@@ -12,7 +12,7 @@ const countries = [
     { name: "Australia", code: "au", alternatives: [] },
     { name: "Austria", code: "at", alternatives: [] },
     { name: "Azerbaijan", code: "az", alternatives: [] },
-    { name: "The Bahamas", code: "bs", alternatives: ["bahamas"] },
+    { name: "The Bahamas", code: "bs", alternatives: [] },
     { name: "Bahrain", code: "bh", alternatives: [] },
     { name: "Bangladesh", code: "bd", alternatives: [] },
     { name: "Barbados", code: "bb", alternatives: [] },
@@ -204,10 +204,77 @@ const countries = [
     { name: "Wales", code: "gb-wls", alternatives: [] }
 ];
 
+// Region mapping by continent (transcontinental countries appear in multiple regions)
+const regionsByContinent = {
+    "Africa": [
+        "dz", "ao", "bj", "bw", "bf", "bi", "cm", "cv", "cf", "td", "km", "cg", "cd", "dj", 
+        "eg", "gq", "er", "sz", "et", "ga", "gm", "gh", "gn", "gw", "ci", "ke", "ls", "lr", 
+        "ly", "mg", "mw", "ml", "mr", "mu", "ma", "mz", "na", "ne", "ng", "rw", "st", "sn", 
+        "sc", "sl", "so", "za", "ss", "sd", "tz", "tg", "tn", "ug", "zm", "zw"
+    ],
+    "Asia": [
+        "af", "am", "az", "bh", "bd", "bt", "bn", "kh", "cn", "ge", "in", "id", "ir", 
+        "iq", "il", "jp", "jo", "kz", "kw", "kg", "la", "lb", "my", "mv", "mn", "mm", "np", 
+        "kp", "om", "pk", "ps", "ph", "qa", "sa", "sg", "kr", "lk", "sy", "tw", "tj", "th", 
+        "tl", "tm", "ae", "uz", "vn", "ye", "ru", "tr" // Russia and Turkey are transcontinental
+    ],
+    "Europe": [
+        "al", "ad", "at", "by", "be", "ba", "bg", "hr", "cy", "cz", "dk", "ee", "fi", "fr", "de", 
+        "gr", "hu", "is", "ie", "it", "xk", "lv", "li", "lt", "lu", "mt", "md", "mc", "me", 
+        "nl", "mk", "no", "pl", "pt", "ro", "ru", "sm", "rs", "sk", "si", "es", "se", "tr", "ch", 
+        "ua", "gb", "va", "gb-eng", "gb-sct", "gb-wls", "gb-nir" // Russia and Turkey are transcontinental
+    ],
+    "North America": [
+        "ag", "bs", "bb", "bz", "ca", "cr", "cu", "dm", "do", "sv", "gd", "gt", "ht", "hn", 
+        "jm", "mx", "ni", "pa", "kn", "lc", "vc", "tt", "us"
+    ],
+    "South America": [
+        "ar", "bo", "br", "cl", "co", "ec", "gy", "py", "pe", "sr", "uy", "ve"
+    ],
+    "Oceania": [
+        "au", "fj", "ki", "mh", "fm", "nr", "nz", "pw", "pg", "ws", "sb", "to", "tv", "vu"
+    ]
+};
+
+// Helper function to get primary region by country code (for "All Countries" quiz)
+function getPrimaryRegionByCode(countryCode) {
+    // Define primary regions for transcontinental countries
+    const primaryRegions = {
+        "ru": "Europe",  // Russia's capital and majority of population is in Europe
+        "tr": "Europe"   // Turkey is often considered primarily European in geography contexts
+    };
+    
+    if (primaryRegions[countryCode]) {
+        return primaryRegions[countryCode];
+    }
+    
+    // For non-transcontinental countries, find their region
+    for (const [region, codes] of Object.entries(regionsByContinent)) {
+        if (codes.includes(countryCode)) {
+            return region;
+        }
+    }
+    return "Unknown";
+}
+
+// Helper function to get all regions for a country (for category filtering)
+function getAllRegionsByCode(countryCode) {
+    const regions = [];
+    for (const [region, codes] of Object.entries(regionsByContinent)) {
+        if (codes.includes(countryCode)) {
+            regions.push(region);
+        }
+    }
+    return regions;
+}
+
 class FlagQuiz {
-    constructor() {
-        this.countries = [...countries];
+    constructor(category = 'all') {
+        this.allCountries = [...countries];
+        this.addRegionData(); // Add region data to countries
         this.preprocessCountries(); // Add special case alternatives upfront
+        this.category = category;
+        this.countries = this.filterCountriesByCategory(category);
         this.currentCountryIndex = 0;
         this.score = 0;
         this.guessedCountries = new Set();
@@ -218,9 +285,45 @@ class FlagQuiz {
         this.startNewQuiz();
     }
 
+    // Add region data to countries using the mapping
+    addRegionData() {
+        this.allCountries.forEach(country => {
+            // For "All Countries" quiz, use primary region to avoid duplicates
+            // For specific categories, we'll handle transcontinental countries in filtering
+            country.region = getPrimaryRegionByCode(country.code);
+        });
+    }
+
+    // Filter countries by category
+    filterCountriesByCategory(category) {
+        if (category === 'all') {
+            return [...this.allCountries];
+        }
+        
+        const regionName = this.getCategoryRegionName(category);
+        // For specific categories, include transcontinental countries that belong to that region
+        return this.allCountries.filter(country => {
+            const countryRegions = getAllRegionsByCode(country.code);
+            return countryRegions.includes(regionName);
+        });
+    }
+
+    // Convert category slug to region name
+    getCategoryRegionName(category) {
+        const categoryMap = {
+            'africa': 'Africa',
+            'asia': 'Asia',
+            'europe': 'Europe',
+            'north-america': 'North America',
+            'south-america': 'South America',
+            'oceania': 'Oceania'
+        };
+        return categoryMap[category] || 'Unknown';
+    }
+
     // Pre-process all countries once on load - just store normalized versions
     preprocessCountries() {
-        this.countries.forEach(country => {
+        this.allCountries.forEach(country => {
             // Store the normalized version of the country name for fast comparison
             country.normalizedName = this.normalizeForComparison(country.name);
             
@@ -234,13 +337,13 @@ class FlagQuiz {
     // Normalize a name to a standard format for comparison
     normalizeForComparison(name) {
         return name.toLowerCase()
-                   .replace(/^the /g, '')          // remove "the " at the beginning
-                   .replace(/saint/g, 'st')        // saint → st
-                   .replace(/st\./g, 'st')         // st. → st  
-                   .replace(/\s+and\s+/g, ' & ')   // and → &
-                   .replace(/-/g, ' ')             // replace dashes with spaces
-                   .replace(/'/g, '')              // remove apostrophes
-                   .replace(/\s+/g, ' ')           // normalize whitespace
+                   .replace(/\bthe\b/g, '')         // remove "the" anywhere in the name
+                   .replace(/saint/g, 'st')         // saint → st
+                   .replace(/st\./g, 'st')          // st. → st  
+                   .replace(/\s+and\s+/g, ' & ')    // and → &
+                   .replace(/-/g, ' ')              // replace dashes with spaces
+                   .replace(/'/g, '')               // remove apostrophes
+                   .replace(/\s+/g, ' ')            // normalize whitespace
                    .trim();
     }
 
@@ -448,7 +551,94 @@ class FlagQuiz {
     // ...existing code...
 }
 
-// Initialize the quiz when the page loads
+// Category Selection and Menu Management
+class QuizManager {
+    constructor() {
+        this.currentQuiz = null;
+        this.initializeCategoryCounts();
+        this.setupMenuListeners();
+    }
+
+    // Calculate and display category counts
+    initializeCategoryCounts() {
+        const tempCountries = [...countries];
+        
+        const counts = {
+            all: tempCountries.length,
+            africa: tempCountries.filter(c => getAllRegionsByCode(c.code).includes('Africa')).length,
+            asia: tempCountries.filter(c => getAllRegionsByCode(c.code).includes('Asia')).length,
+            europe: tempCountries.filter(c => getAllRegionsByCode(c.code).includes('Europe')).length,
+            'north-america': tempCountries.filter(c => getAllRegionsByCode(c.code).includes('North America')).length,
+            'south-america': tempCountries.filter(c => getAllRegionsByCode(c.code).includes('South America')).length,
+            oceania: tempCountries.filter(c => getAllRegionsByCode(c.code).includes('Oceania')).length
+        };
+
+        // Update count displays
+        Object.entries(counts).forEach(([category, count]) => {
+            const countElement = document.getElementById(`count-${category}`);
+            if (countElement) {
+                countElement.textContent = count;
+            }
+        });
+    }
+
+    // Setup menu event listeners
+    setupMenuListeners() {
+        // Category selection buttons
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const category = e.currentTarget.dataset.category;
+                this.startQuiz(category);
+            });
+        });
+
+        // Back to menu button
+        document.getElementById('back-to-menu').addEventListener('click', () => {
+            this.showMenu();
+        });
+
+        // Menu button in completion screen
+        document.getElementById('menu-btn').addEventListener('click', () => {
+            this.showMenu();
+        });
+    }
+
+    // Start a quiz with the selected category
+    startQuiz(category) {
+        // Hide menu, show quiz
+        document.getElementById('category-selection').style.display = 'none';
+        document.getElementById('quiz-container').style.display = 'block';
+        
+        // Update quiz title
+        const titles = {
+            'all': 'All Countries',
+            'africa': 'Africa',
+            'asia': 'Asia',
+            'europe': 'Europe',
+            'north-america': 'North America',
+            'south-america': 'South America',
+            'oceania': 'Oceania'
+        };
+        document.getElementById('quiz-title').textContent = titles[category] || 'Quiz';
+        
+        // Start the quiz
+        this.currentQuiz = new FlagQuiz(category);
+    }
+
+    // Show the category selection menu
+    showMenu() {
+        document.getElementById('category-selection').style.display = 'block';
+        document.getElementById('quiz-container').style.display = 'none';
+        document.getElementById('completion-screen').style.display = 'none';
+        
+        // Clean up current quiz
+        if (this.currentQuiz) {
+            this.currentQuiz = null;
+        }
+    }
+}
+
+// Initialize the quiz manager when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    new FlagQuiz();
+    new QuizManager();
 });
