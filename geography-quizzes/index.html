@@ -52,6 +52,64 @@
                     <span class="category-count" id="count-oceania">14</span>
                 </button>
             </div>
+            
+            <!-- Multi-Region Selection -->
+            <div class="multi-region-section">
+                <h3>🎯 Custom Quiz</h3>
+                <p>Select multiple regions to create your own quiz combination:</p>
+                
+                <div class="region-checkboxes">
+                    <label class="region-checkbox">
+                        <input type="checkbox" value="AF" id="region-af">
+                        <span class="checkbox-custom"></span>
+                        <span class="region-label">🌍 Africa (<span id="multi-count-af">54</span>)</span>
+                    </label>
+                    <label class="region-checkbox">
+                        <input type="checkbox" value="AS" id="region-as">
+                        <span class="checkbox-custom"></span>
+                        <span class="region-label">🌏 Asia (<span id="multi-count-as">47</span>)</span>
+                    </label>
+                    <label class="region-checkbox">
+                        <input type="checkbox" value="EU" id="region-eu">
+                        <span class="checkbox-custom"></span>
+                        <span class="region-label">🌍 Europe (<span id="multi-count-eu">51</span>)</span>
+                    </label>
+                    <label class="region-checkbox">
+                        <input type="checkbox" value="NA" id="region-na">
+                        <span class="checkbox-custom"></span>
+                        <span class="region-label">🌎 North America (<span id="multi-count-na">23</span>)</span>
+                    </label>
+                    <label class="region-checkbox">
+                        <input type="checkbox" value="SA" id="region-sa">
+                        <span class="checkbox-custom"></span>
+                        <span class="region-label">🌎 South America (<span id="multi-count-sa">12</span>)</span>
+                    </label>
+                    <label class="region-checkbox">
+                        <input type="checkbox" value="OC" id="region-oc">
+                        <span class="checkbox-custom"></span>
+                        <span class="region-label">🌏 Oceania (<span id="multi-count-oc">14</span>)</span>
+                    </label>
+                </div>
+                
+                <div class="multi-region-controls">
+                    <div class="multi-region-top-row">
+                        <div class="selected-count">
+                            Selected: <span id="multi-selected-count">0</span> countries
+                        </div>
+                        <button id="start-custom-quiz" class="custom-quiz-btn" disabled>
+                            Start Custom Quiz
+                        </button>
+                    </div>
+                    <div class="multi-region-buttons">
+                        <button id="select-all-regions" class="select-all-btn">
+                            Select All
+                        </button>
+                        <button id="clear-all-regions" class="clear-all-btn">
+                            Clear All
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Quiz Container -->
@@ -87,7 +145,8 @@
 
         <div class="completion-screen" id="completion-screen" style="display: none;">
             <h2>🎉 Quiz Complete!</h2>
-            <p>You've correctly identified all <span id="final-score">201</span> flags!</p>
+            <p id="completion-message">You've correctly identified all <span id="final-score">201</span> flags!</p>
+            <p id="completion-details" style="display: none;"></p>
             <button id="restart-btn" class="action-btn">Try Again</button>
             <button id="menu-btn" class="action-btn">Back to Menu</button>
         </div>

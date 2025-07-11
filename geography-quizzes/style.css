@@ -206,6 +206,13 @@ header h1 {
     background: #f8f9fa;
 }
 
+#completion-details {
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 /* Loading animation */
 .flag-display img {
     opacity: 0;
@@ -311,6 +318,163 @@ header h1 {
     margin: 0;
 }
 
+/* Multi-Region Selection Styles */
+.multi-region-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #e9ecef;
+}
+
+.multi-region-section h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.multi-region-section p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 1em;
+}
+
+.region-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.region-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.region-checkbox:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+}
+
+.region-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    margin-right: 12px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.region-checkbox input[type="checkbox"]:checked + .checkbox-custom {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+}
+
+.region-checkbox input[type="checkbox"]:checked + .checkbox-custom::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.region-label {
+    font-weight: 500;
+    color: #333;
+}
+
+.multi-region-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.multi-region-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.multi-region-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.selected-count {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.custom-quiz-btn {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+.custom-quiz-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
+.custom-quiz-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.select-all-btn,
+.clear-all-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+}
+
+.clear-all-btn {
+    background: #dc3545;
+}
+
+.select-all-btn:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+.clear-all-btn:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
@@ -367,5 +531,26 @@ header h1 {
         flex-direction: column;
         gap: 15px;
         text-align: center;
+    }
+    
+    .multi-region-top-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    
+    .multi-region-buttons {
+        justify-content: center;
+    }
+
+    .custom-quiz-btn,
+    .select-all-btn,
+    .clear-all-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .region-checkboxes {
+        grid-template-columns: 1fr;
     }
 }
