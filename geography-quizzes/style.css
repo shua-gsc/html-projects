@@ -47,18 +47,29 @@ header h1 {
 }
 
 .progress-section {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 30px;
+    padding: 0 10px;
 }
 
 .progress-section span {
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: bold;
     color: #333;
     background: linear-gradient(45deg, #667eea, #764ba2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+#score-display {
+    text-align: left;
+}
+
+#remaining-display {
+    text-align: right;
 }
 
 .flag-display {
@@ -109,6 +120,36 @@ header h1 {
     box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.2);
 }
 
+.skip-btn {
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #ffa726, #ff7043);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.skip-btn:hover {
+    background: linear-gradient(45deg, #ffb74d, #ff8a65);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 167, 38, 0.4);
+}
+
+.skip-btn:active {
+    transform: translateY(0);
+}
+
+.skip-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
 .feedback {
     text-align: center;
     margin-bottom: 20px;
@@ -126,6 +167,11 @@ header h1 {
 
 .feedback.incorrect {
     color: #dc3545;
+}
+
+.feedback.skipped {
+    color: #ff8c00;
+    font-size: 1.3em;
 }
 
 .controls {
@@ -512,17 +558,25 @@ header h1 {
         max-height: 150px;
     }
     
+    .progress-section {
+        padding: 0 5px;
+    }
+    
+    .progress-section span {
+        font-size: 1.1em;
+    }
+
     #country-input {
         font-size: 1em;
         padding: 12px;
     }
-    
+
     .controls {
         flex-direction: column;
         gap: 10px;
     }
     
-    .nav-btn, .action-btn {
+    .nav-btn, .action-btn, .skip-btn {
         width: 100%;
         max-width: 200px;
         margin: 0 auto;

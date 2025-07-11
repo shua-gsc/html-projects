@@ -270,6 +270,7 @@ class FlagQuiz {
         this.currentCountryIndex = 0;
         this.score = 0;
         this.guessedCountries = new Set();
+        this.skippedCountries = new Set();
         this.shuffledCountries = [];
         
         this.initializeElements();
@@ -341,9 +342,11 @@ class FlagQuiz {
         this.flagImage = document.getElementById('flag-image');
         this.countryInput = document.getElementById('country-input');
         this.feedback = document.getElementById('feedback');
-        this.progressDisplay = document.getElementById('progress');
+        this.scoreDisplay = document.getElementById('score-display');
+        this.remainingDisplay = document.getElementById('remaining-display');
         this.prevBtn = document.getElementById('prev-btn');
         this.nextBtn = document.getElementById('next-btn');
+        this.skipBtn = document.getElementById('skip-btn');
         this.completionScreen = document.getElementById('completion-screen');
         this.restartBtn = document.getElementById('restart-btn');
         this.finalScore = document.getElementById('final-score');
@@ -354,6 +357,7 @@ class FlagQuiz {
 
         this.prevBtn.addEventListener('click', () => this.navigateFlag(-1));
         this.nextBtn.addEventListener('click', () => this.navigateFlag(1));
+        this.skipBtn.addEventListener('click', () => this.skipFlag());
         this.restartBtn.addEventListener('click', () => this.restartQuiz());
 
         // Focus on input when page loads
@@ -366,6 +370,7 @@ class FlagQuiz {
         this.currentCountryIndex = 0;
         this.score = 0;
         this.guessedCountries.clear();
+        this.skippedCountries.clear();
         
         this.showCurrentFlag();
         this.updateDisplay();
@@ -423,7 +428,7 @@ class FlagQuiz {
 
     getUnguessedCountries() {
         return this.shuffledCountries.filter(country => 
-            !this.guessedCountries.has(country.code)
+            !this.guessedCountries.has(country.code) && !this.skippedCountries.has(country.code)
         );
     }
 
@@ -465,6 +470,9 @@ class FlagQuiz {
         this.score++;
         this.guessedCountries.add(country.code);
         
+        this.countryInput.value = '';
+        this.countryInput.focus();
+        
         this.updateDisplay();
         
         // Immediately advance to next flag
@@ -497,12 +505,14 @@ class FlagQuiz {
             return;
         }
 
-        // Stay at the same index, but since we removed a country, we'll see the next one
+        // After removing a country (guessed or skipped), stay at the same index
+        // but if that index is now out of bounds, wrap to the beginning
         if (this.currentCountryIndex >= unguessedCountries.length) {
             this.currentCountryIndex = 0;
         }
         
         this.showCurrentFlag();
+        this.updateNavigationButtons();
     }
 
     restartQuiz() {
@@ -518,12 +528,31 @@ class FlagQuiz {
             return;
         }
 
-        // Stay at the same index, but since we removed a country, we'll see the next one
-        if (this.currentCountryIndex >= unguessedCountries.length) {
-            this.currentCountryIndex = 0;
-        }
+        const currentCountry = unguessedCountries[this.currentCountryIndex];
         
-        this.showCurrentFlag();
+        // Mark as skipped
+        this.skippedCountries.add(currentCountry.code);
+        
+        // Update display immediately to show new progress
+        this.updateDisplay();
+        
+        // Show the correct answer with a distinct style
+        this.feedback.textContent = `${currentCountry.name}`;
+        this.feedback.className = 'feedback skipped';
+        
+        // Clear input and disable it temporarily
+        this.countryInput.value = '';
+        this.countryInput.disabled = true;
+        this.skipBtn.disabled = true;
+        
+        // Auto-advance to next flag after 2.5 seconds
+        setTimeout(() => {
+            this.clearFeedback();
+            this.countryInput.disabled = false;
+            this.skipBtn.disabled = false;
+            this.countryInput.focus();
+            this.navigateToNextUnguessed();
+        }, 2500);
     }
 
     updateNavigationButtons() {
@@ -533,7 +562,11 @@ class FlagQuiz {
     }
 
     updateDisplay() {
-        this.progressDisplay.textContent = `${this.score} / ${this.countries.length}`;
+        const remaining = this.getUnguessedCountries().length;
+        const total = this.countries.length;
+        
+        this.scoreDisplay.textContent = `${this.score} / ${total}`;
+        this.remainingDisplay.textContent = `${remaining} remaining`;
     }
 
     clearFeedback() {
@@ -546,7 +579,19 @@ class FlagQuiz {
         const completionMessageElement = document.getElementById('completion-message');
         const completionDetailsElement = document.getElementById('completion-details');
         
-        finalScoreElement.textContent = this.countries.length;
+        const correctlyGuessed = this.score;
+        const skipped = this.skippedCountries.size;
+        const total = this.countries.length;
+        
+        finalScoreElement.textContent = total;
+        
+        // Create detailed statistics message
+        let statsMessage = '';
+        if (skipped > 0) {
+            statsMessage = `Correctly guessed: ${correctlyGuessed} | Skipped: ${skipped} | Total: ${total}`;
+        } else {
+            statsMessage = `Perfect score! You correctly identified all ${total} flags without skipping any!`;
+        }
         
         // Show different messages based on quiz type
         if (this.category === 'custom' && this.customRegions) {
@@ -556,7 +601,8 @@ class FlagQuiz {
                 'EU': 'Europe',
                 'NA': 'North America',
                 'SA': 'South America',
-                'OC': 'Oceania'
+                'OC': 'Oceania',
+                'TR': 'Territories'
             };
             
             const regionList = this.customRegions.map(code => regionNames[code] || code);
@@ -570,12 +616,13 @@ class FlagQuiz {
                 regionsText = regionList.slice(0, -1).join(', ') + ', and ' + regionList.slice(-1);
             }
             
-            completionMessageElement.innerHTML = `Congratulations! You've correctly identified all <span id="final-score">${this.countries.length}</span> flags!`;
-            completionDetailsElement.textContent = `Custom quiz: ${regionsText}`;
+            completionMessageElement.innerHTML = `🎉 Quiz Complete! <span id="final-score">${total}</span> flags finished!`;
+            completionDetailsElement.innerHTML = `<strong>Custom quiz:</strong> ${regionsText}<br><strong>Stats:</strong> ${statsMessage}`;
             completionDetailsElement.style.display = 'block';
         } else {
-            completionMessageElement.innerHTML = `You've correctly identified all <span id="final-score">${this.countries.length}</span> flags!`;
-            completionDetailsElement.style.display = 'none';
+            completionMessageElement.innerHTML = `🎉 Quiz Complete! <span id="final-score">${total}</span> flags finished!`;
+            completionDetailsElement.innerHTML = `<strong>Stats:</strong> ${statsMessage}`;
+            completionDetailsElement.style.display = 'block';
         }
         
         this.completionScreen.style.display = 'block';
