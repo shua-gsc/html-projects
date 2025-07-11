@@ -284,6 +284,13 @@ class FlagQuiz {
             return [...this.allCountries];
         }
         
+        if (category === 'countries') {
+            // Return all countries except territories (TR region)
+            return this.allCountries.filter(country => 
+                !country.region || !country.region.includes('TR')
+            );
+        }
+        
         // Handle custom multi-region quiz
         if (category === 'custom' && customRegions && customRegions.length > 0) {
             return this.allCountries.filter(country => 
@@ -642,6 +649,7 @@ class QuizManager {
     initializeCategoryCounts() {
         const counts = {
             all: countries.length,
+            countries: countries.filter(c => !c.region || !c.region.includes('TR')).length,
             africa: countries.filter(c => c.region && c.region.includes('AF')).length,
             asia: countries.filter(c => c.region && c.region.includes('AS')).length,
             europe: countries.filter(c => c.region && c.region.includes('EU')).length,
@@ -826,6 +834,7 @@ class QuizManager {
         // Update quiz title
         const titles = {
             'all': 'All Flags',
+            'countries': 'All Countries',
             'africa': 'Africa',
             'asia': 'Asia',
             'europe': 'Europe',
