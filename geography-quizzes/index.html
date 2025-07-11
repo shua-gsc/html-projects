@@ -18,8 +18,8 @@
             <div class="category-grid">
                 <button class="category-btn" data-category="all">
                     <span class="category-icon">🌍</span>
-                    <span class="category-name">All Countries</span>
-                    <span class="category-count" id="count-all">201</span>
+                    <span class="category-name">All Flags</span>
+                    <span class="category-count" id="count-all">254</span>
                 </button>
                 <button class="category-btn" data-category="africa">
                     <span class="category-icon">🌍</span>
@@ -50,6 +50,11 @@
                     <span class="category-icon">🌏</span>
                     <span class="category-name">Oceania</span>
                     <span class="category-count" id="count-oceania">14</span>
+                </button>
+                <button class="category-btn" data-category="territories">
+                    <span class="category-icon">🏝️</span>
+                    <span class="category-name">Territories</span>
+                    <span class="category-count" id="count-territories">53</span>
                 </button>
             </div>
             
@@ -89,6 +94,11 @@
                         <span class="checkbox-custom"></span>
                         <span class="region-label">🌏 Oceania (<span id="multi-count-oc">14</span>)</span>
                     </label>
+                    <label class="region-checkbox">
+                        <input type="checkbox" value="TR" id="region-tr">
+                        <span class="checkbox-custom"></span>
+                        <span class="region-label">🏝️ Territories (<span id="multi-count-tr">53</span>)</span>
+                    </label>
                 </div>
                 
                 <div class="multi-region-controls">
@@ -120,7 +130,7 @@
             </div>
 
             <div class="progress-section">
-                <span id="progress">0 / 201</span>
+                <span id="progress">0 / 0</span>
             </div>
 
             <div class="flag-display">

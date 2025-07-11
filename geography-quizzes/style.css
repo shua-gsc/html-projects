@@ -273,6 +273,15 @@ header h1 {
     transform: translateY(-2px);
 }
 
+/* Special styling for territories button */
+.category-btn[data-category="territories"] {
+    background: linear-gradient(135deg, #48a999 0%, #5a7a7c 100%);
+}
+
+.category-btn[data-category="territories"]:hover {
+    background: linear-gradient(135deg, #5abcab 0%, #6c8c8e 100%);
+}
+
 .category-icon {
     font-size: 2.5em;
     margin-bottom: 10px;

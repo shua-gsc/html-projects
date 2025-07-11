@@ -134,6 +134,7 @@ const countries = [
     { name: "Oman", code: "om", region: ["AS"], alternatives: [] },
     { name: "Pakistan", code: "pk", region: ["AS"], alternatives: [] },
     { name: "Palau", code: "pw", region: ["OC"], alternatives: [] },
+    { name: "Palestine", code: "ps", region: ["AS"], alternatives: [] },
     { name: "Panama", code: "pa", region: ["NA"], alternatives: [] },
     { name: "Papua New Guinea", code: "pg", region: ["OC"], alternatives: [] },
     { name: "Paraguay", code: "py", region: ["SA"], alternatives: [] },
@@ -171,7 +172,6 @@ const countries = [
     { name: "Sweden", code: "se", region: ["EU"], alternatives: [] },
     { name: "Switzerland", code: "ch", region: ["EU"], alternatives: [] },
     { name: "Syria", code: "sy", region: ["AS"], alternatives: [] },
-    { name: "Taiwan", code: "tw", region: ["AS"], alternatives: [] },
     { name: "Tajikistan", code: "tj", region: ["AS"], alternatives: [] },
     { name: "Tanzania", code: "tz", region: ["AF"], alternatives: [] },
     { name: "Thailand", code: "th", region: ["AS"], alternatives: [] },
@@ -198,11 +198,66 @@ const countries = [
     { name: "Zambia", code: "zm", region: ["AF"], alternatives: [] },
     { name: "Zimbabwe", code: "zw", region: ["AF"], alternatives: [] },
     { name: "Kosovo", code: "xk", region: ["EU"], alternatives: [] },
-    { name: "England", code: "gb-eng", region: ["EU"], alternatives: [] },
-    { name: "Scotland", code: "gb-sct", region: ["EU"], alternatives: [] },
-    { name: "Wales", code: "gb-wls", region: ["EU"], alternatives: [] },
-    { name: "Northern Ireland", code: "gb-nir", region: ["EU"], alternatives: [] },
-    { name: "Palestine", code: "ps", region: ["AS"], alternatives: [] }
+    { name: "Taiwan", code: "tw", region: ["AS"], alternatives: [] },
+    
+    // Territories and Dependencies (TR region) - not included in main quizzes
+    { name: "Åland Islands", code: "ax", region: ["TR"], alternatives: ["aland islands"] },
+    { name: "American Samoa", code: "as", region: ["TR"], alternatives: [] },
+    { name: "Anguilla", code: "ai", region: ["TR"], alternatives: [] },
+    { name: "Antarctica", code: "aq", region: ["TR"], alternatives: [] },
+    { name: "Aruba", code: "aw", region: ["TR"], alternatives: [] },
+    { name: "Bermuda", code: "bm", region: ["TR"], alternatives: [] },
+    { name: "Bouvet Island", code: "bv", region: ["TR"], alternatives: [] },
+    { name: "British Indian Ocean Territory", code: "io", region: ["TR"], alternatives: ["biot"] },
+    { name: "Caribbean Netherlands", code: "bq", region: ["TR"], alternatives: [] },
+    { name: "Cayman Islands", code: "ky", region: ["TR"], alternatives: [] },
+    { name: "Christmas Island", code: "cx", region: ["TR"], alternatives: [] },
+    { name: "Cocos (Keeling) Islands", code: "cc", region: ["TR"], alternatives: ["cocos islands", "keeling islands"] },
+    { name: "Cook Islands", code: "ck", region: ["TR"], alternatives: [] },
+    { name: "Curaçao", code: "cw", region: ["TR"], alternatives: ["curacao"] },
+    { name: "England", code: "gb-eng", region: ["TR"], alternatives: [] },
+    { name: "Falkland Islands", code: "fk", region: ["TR"], alternatives: [] },
+    { name: "Faroe Islands", code: "fo", region: ["TR"], alternatives: [] },
+    { name: "French Guiana", code: "gf", region: ["TR"], alternatives: [] },
+    { name: "French Polynesia", code: "pf", region: ["TR"], alternatives: [] },
+    { name: "French Southern and Antarctic Lands", code: "tf", region: ["TR"], alternatives: ["fsat"] },
+    { name: "Gibraltar", code: "gi", region: ["TR"], alternatives: [] },
+    { name: "Greenland", code: "gl", region: ["TR"], alternatives: [] },
+    { name: "Guadeloupe", code: "gp", region: ["TR"], alternatives: [] },
+    { name: "Guam", code: "gu", region: ["TR"], alternatives: [] },
+    { name: "Guernsey", code: "gg", region: ["TR"], alternatives: [] },
+    { name: "Heard Island and McDonald Islands", code: "hm", region: ["TR"], alternatives: [] },
+    { name: "Hong Kong", code: "hk", region: ["TR"], alternatives: [] },
+    { name: "Isle of Man", code: "im", region: ["TR"], alternatives: [] },
+    { name: "Jersey", code: "je", region: ["TR"], alternatives: [] },
+    { name: "Macau", code: "mo", region: ["TR"], alternatives: ["macao"] },
+    { name: "Martinique", code: "mq", region: ["TR"], alternatives: [] },
+    { name: "Mayotte", code: "yt", region: ["TR"], alternatives: [] },
+    { name: "Montserrat", code: "ms", region: ["TR"], alternatives: [] },
+    { name: "New Caledonia", code: "nc", region: ["TR"], alternatives: [] },
+    { name: "Niue", code: "nu", region: ["TR"], alternatives: [] },
+    { name: "Norfolk Island", code: "nf", region: ["TR"], alternatives: [] },
+    { name: "Northern Ireland", code: "gb-nir", region: ["TR"], alternatives: [] },
+    { name: "Northern Mariana Islands", code: "mp", region: ["TR"], alternatives: [] },
+    { name: "Pitcairn Islands", code: "pn", region: ["TR"], alternatives: [] },
+    { name: "Puerto Rico", code: "pr", region: ["TR"], alternatives: [] },
+    { name: "Réunion", code: "re", region: ["TR"], alternatives: ["reunion"] },
+    { name: "Saint Barthélemy", code: "bl", region: ["TR"], alternatives: ["saint barthelemy"] },
+    { name: "Saint Helena, Ascension and Tristan da Cunha", code: "sh", region: ["TR"], alternatives: ["saint helena"] },
+    { name: "Saint Martin", code: "mf", region: ["TR"], alternatives: [] },
+    { name: "Saint Pierre and Miquelon", code: "pm", region: ["TR"], alternatives: [] },
+    { name: "Sint Maarten", code: "sx", region: ["TR"], alternatives: [] },
+    { name: "Scotland", code: "gb-sct", region: ["TR"], alternatives: [] },
+    { name: "South Georgia", code: "gs", region: ["TR"], alternatives: ["south georgia and the south sandwich islands"] },
+    { name: "Svalbard and Jan Mayen", code: "sj", region: ["TR"], alternatives: [] },
+    { name: "Tokelau", code: "tk", region: ["TR"], alternatives: [] },
+    { name: "Turks and Caicos Islands", code: "tc", region: ["TR"], alternatives: [] },
+    { name: "United States Minor Outlying Islands", code: "um", region: ["TR"], alternatives: [] },
+    { name: "British Virgin Islands", code: "vg", region: ["TR"], alternatives: [] },
+    { name: "United States Virgin Islands", code: "vi", region: ["TR"], alternatives: [] },
+    { name: "Wales", code: "gb-wls", region: ["TR"], alternatives: [] },
+    { name: "Wallis and Futuna", code: "wf", region: ["TR"], alternatives: [] },
+    { name: "Western Sahara", code: "eh", region: ["TR"], alternatives: [] }
 ];
 
 class FlagQuiz {
@@ -250,7 +305,8 @@ class FlagQuiz {
             'europe': 'EU',
             'north-america': 'NA',
             'south-america': 'SA',
-            'oceania': 'OC'
+            'oceania': 'OC',
+            'territories': 'TR'
         };
         return categoryMap[category] || 'AF';
     }
@@ -324,13 +380,45 @@ class FlagQuiz {
         }
 
         const currentCountry = unguessedCountries[this.currentCountryIndex];
-        this.flagImage.src = `https://flagcdn.com/w1160/${currentCountry.code}.png`;
-        this.flagImage.alt = `Flag of ${currentCountry.name}`;
+        
+        // Try flag sources in order of preference
+        const flagSources = [
+            `https://flagpedia.net/data/flags/w1160/${currentCountry.code}.png`,
+            `https://flagcdn.com/w1160/${currentCountry.code}.png`,
+            `https://restcountries.com/data/${currentCountry.code}.svg`
+        ];
+        
+        this.loadFlagImage(flagSources, 0, currentCountry.name);
         
         // Clear input and feedback
         this.countryInput.value = '';
         this.clearFeedback();
         this.countryInput.focus();
+    }
+
+    loadFlagImage(sources, index, countryName) {
+        if (index >= sources.length) {
+            // If all sources fail, show a simple placeholder
+            this.flagImage.src = 'data:image/svg+xml;charset=utf-8,' + 
+                '<svg width="320" height="240" xmlns="http://www.w3.org/2000/svg">' +
+                '<rect width="100%" height="100%" fill="#f0f0f0"/>' +
+                '<text x="50%" y="50%" font-family="Arial" font-size="14" fill="#999" text-anchor="middle" dy=".3em">Flag not found</text>' +
+                '</svg>';
+            this.flagImage.alt = `Flag of ${countryName} (not available)`;
+            return;
+        }
+
+        this.flagImage.onload = () => {
+            // Image loaded successfully
+            this.flagImage.alt = `Flag of ${countryName}`;
+        };
+
+        this.flagImage.onerror = () => {
+            // Try next source
+            this.loadFlagImage(sources, index + 1, countryName);
+        };
+
+        this.flagImage.src = sources[index];
     }
 
     getUnguessedCountries() {
@@ -512,7 +600,8 @@ class QuizManager {
             europe: countries.filter(c => c.region && c.region.includes('EU')).length,
             'north-america': countries.filter(c => c.region && c.region.includes('NA')).length,
             'south-america': countries.filter(c => c.region && c.region.includes('SA')).length,
-            oceania: countries.filter(c => c.region && c.region.includes('OC')).length
+            oceania: countries.filter(c => c.region && c.region.includes('OC')).length,
+            territories: countries.filter(c => c.region && c.region.includes('TR')).length
         };
 
         // Update count displays for single categories
@@ -530,7 +619,8 @@ class QuizManager {
             'eu': counts.europe,
             'na': counts['north-america'],
             'sa': counts['south-america'],
-            'oc': counts.oceania
+            'oc': counts.oceania,
+            'tr': counts.territories
         };
 
         Object.entries(multiCounts).forEach(([region, count]) => {
@@ -688,13 +778,14 @@ class QuizManager {
         
         // Update quiz title
         const titles = {
-            'all': 'All Countries',
+            'all': 'All Flags',
             'africa': 'Africa',
             'asia': 'Asia',
             'europe': 'Europe',
             'north-america': 'North America',
             'south-america': 'South America',
-            'oceania': 'Oceania'
+            'oceania': 'Oceania',
+            'territories': 'Territories & Dependencies'
         };
         document.getElementById('quiz-title').textContent = titles[category] || 'Quiz';
         
