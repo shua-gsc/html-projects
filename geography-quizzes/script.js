@@ -359,6 +359,7 @@ class FlagQuiz {
     this.completionScreen = document.getElementById('completion-screen');
     this.restartBtn = document.getElementById('restart-btn');
     this.finalScore = document.getElementById('final-score');
+    this.flagGrid = document.getElementById('flag-grid');
   }
 
   setupEventListeners() {
@@ -381,6 +382,7 @@ class FlagQuiz {
     this.guessedCountries.clear();
     this.skippedCountries.clear();
 
+    this.createFlagGrid();
     this.showCurrentFlag();
     this.updateDisplay();
     this.updateNavigationButtons();
@@ -573,6 +575,7 @@ class FlagQuiz {
     this.countryInput.focus();
 
     this.updateDisplay();
+    this.updateFlagGrid();
 
     // Immediately advance to next flag
     this.navigateToNextUnguessed();
@@ -634,6 +637,9 @@ class FlagQuiz {
 
     // Update display immediately to show new progress
     this.updateDisplay();
+    
+    // Update the flag grid to show the skipped state
+    this.updateFlagGrid();
 
     // Show the correct answer with a distinct style
     this.feedback.textContent = `${currentCountry.name}`;
@@ -654,23 +660,103 @@ class FlagQuiz {
     }, 2500);
   }
 
-  updateNavigationButtons() {
+  createFlagGrid() {
+    this.flagGrid.innerHTML = '';
+    
+    this.shuffledCountries.forEach((country, index) => {
+      const flagItem = document.createElement('div');
+      flagItem.className = 'flag-item';
+      flagItem.dataset.countryCode = country.code;
+      flagItem.dataset.index = index;
+      
+      const img = document.createElement('img');
+      img.src = this.getFlagUrl(country.code);
+      img.alt = `Flag of ${country.name}`;
+      img.loading = 'lazy';
+      
+      const label = document.createElement('div');
+      label.className = 'flag-label';
+      label.textContent = country.name;
+      
+      flagItem.appendChild(img);
+      flagItem.appendChild(label);
+      
+      flagItem.addEventListener('click', () => this.jumpToFlag(index));
+      
+      this.flagGrid.appendChild(flagItem);
+    });
+    
+    this.updateFlagGrid();
+  }
+
+  // Generate the primary flag URL for a country code
+  getFlagUrl(countryCode) {
+    return `https://flagpedia.net/data/flags/w1160/${countryCode}.png`;
+  }
+
+  jumpToFlag(index) {
     const unguessedCountries = this.getUnguessedCountries();
-    this.prevBtn.disabled = unguessedCountries.length <= 1;
-    this.nextBtn.disabled = unguessedCountries.length <= 1;
+    const targetCountry = this.shuffledCountries[index];
+    
+    // Only allow jumping to unguessed flags
+    if (this.guessedCountries.has(targetCountry.code) || this.skippedCountries.has(targetCountry.code)) {
+      return;
+    }
+    
+    // Find the index in the unguessed array
+    const unguessedIndex = unguessedCountries.findIndex(c => c.code === targetCountry.code);
+    if (unguessedIndex !== -1) {
+      this.currentCountryIndex = unguessedIndex;
+      this.showCurrentFlag();
+      this.updateNavigationButtons();
+      this.updateFlagGrid();
+      this.countryInput.focus();
+    }
   }
 
+  // Update the score and remaining count display
   updateDisplay() {
-    const remaining = this.getUnguessedCountries().length;
-    const total = this.countries.length;
-
-    this.scoreDisplay.textContent = `${this.score} / ${total}`;
-    this.remainingDisplay.textContent = `${remaining} remaining`;
+    const unguessedCount = this.getUnguessedCountries().length;
+    const totalCount = this.countries.length;
+    const guessedCount = totalCount - unguessedCount;
+    
+    this.scoreDisplay.textContent = `${guessedCount} / ${totalCount}`;
+    this.remainingDisplay.textContent = `${unguessedCount} remaining`;
   }
-
+  
+  // Clear any feedback messages
   clearFeedback() {
     this.feedback.textContent = '';
     this.feedback.className = 'feedback';
+  }
+  
+  // Update navigation button states
+  updateNavigationButtons() {
+    const unguessedCountries = this.getUnguessedCountries();
+    const hasMultiple = unguessedCountries.length > 1;
+    
+    this.prevBtn.disabled = !hasMultiple;
+    this.nextBtn.disabled = !hasMultiple;
+  }
+
+  updateFlagGrid() {
+    const unguessedCountries = this.getUnguessedCountries();
+    const currentCountry = unguessedCountries[this.currentCountryIndex];
+    
+    this.flagGrid.querySelectorAll('.flag-item').forEach(item => {
+      const countryCode = item.dataset.countryCode;
+      
+      // Remove all state classes
+      item.classList.remove('current', 'completed', 'skipped');
+      
+      if (this.guessedCountries.has(countryCode)) {
+        item.classList.add('completed');
+      } else if (this.skippedCountries.has(countryCode)) {
+        item.classList.add('skipped');
+      } else if (currentCountry && currentCountry.code === countryCode) {
+        item.classList.add('current');
+      }
+    });
   }
 
   showCompletionScreen() {

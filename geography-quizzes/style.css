@@ -478,6 +478,94 @@ header h1 {
   text-align: center;
   color: #666;
   line-height: 1.6;
+  margin-top: 30px;
+}
+
+.flag-overview {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.flag-overview h4 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.flag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.flag-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.flag-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.flag-item.current {
+  border: 3px solid #4ecdc4;
+  box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.3);
+}
+
+.flag-item.completed {
+  cursor: default;
+}
+
+.flag-item.completed:hover {
+  transform: none;
+}
+
+.flag-item.skipped {
+  border: 2px solid #ff6b6b;
+  background: #ffe6e6;
+}
+
+.flag-item img {
+  width: 100%;
+  height: 50px;
+  object-fit: cover;
+  display: block;
+}
+
+.flag-item .flag-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  font-size: 0.7em;
+  padding: 2px 4px;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.flag-item.completed .flag-label,
+.flag-item.skipped .flag-label {
+  transform: translateY(0);
+}
+
+.flag-item.skipped .flag-label {
+  background: #ff6b6b;
+  color: white;
 }
 
 .completion-screen {
@@ -829,7 +917,7 @@ header h1 {
 }
 
 .region-checkbox input[type="checkbox"]:checked+.checkbox-custom {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   border-color: #667eea;
 }
 
