@@ -129,7 +129,7 @@ header h1 {
 }
 
 .quiz-container {
-  padding: 32px;
+  padding: 40px 35px;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
@@ -746,7 +746,7 @@ header h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 35px;
 }
 
 .back-btn {
