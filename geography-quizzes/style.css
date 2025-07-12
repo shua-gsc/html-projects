@@ -729,14 +729,14 @@ header h1 {
 }
 
 .category-name {
-  font-size: 1.2em;
+  font-size: 1.5em;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   letter-spacing: -0.01em;
 }
 
 .category-count {
-  font-size: 0.9em;
+  font-size: 1.1em;
   opacity: 0.9;
   font-weight: 500;
 }
@@ -1098,7 +1098,7 @@ header h1 {
   }
 
   .category-name {
-    font-size: 1em;
+    font-size: 1.2em;
   }
 
   .completion-screen {
