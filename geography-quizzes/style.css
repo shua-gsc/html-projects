@@ -509,19 +509,19 @@ header h1 {
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease;
   background: white;
+  border: 3px solid transparent;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  /* Remove transitions on scroll-heavy properties */
 }
 
 .flag-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .flag-item.current {
-  border: 3px solid #4ecdc4;
-  box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.3);
+  border-color: #4ecdc4;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 0 0 2px rgba(78, 205, 196, 0.3);
 }
 
 .flag-item.completed {
