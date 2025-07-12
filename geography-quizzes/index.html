@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Flags Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <header>
@@ -17,95 +19,86 @@
             <h2>Choose Your Quiz Category</h2>
             <div class="category-grid">
                 <button class="category-btn" data-category="all">
-                    <span class="category-icon">🌍</span>
                     <span class="category-name">All Flags</span>
                     <span class="category-count" id="count-all">254</span>
                 </button>
                 <button class="category-btn" data-category="countries">
-                    <span class="category-icon">🏛️</span>
                     <span class="category-name">All Countries</span>
                     <span class="category-count" id="count-countries">197</span>
                 </button>
                 <button class="category-btn" data-category="africa">
-                    <span class="category-icon">🌍</span>
                     <span class="category-name">Africa</span>
                     <span class="category-count" id="count-africa">54</span>
                 </button>
                 <button class="category-btn" data-category="asia">
-                    <span class="category-icon">🌏</span>
                     <span class="category-name">Asia</span>
                     <span class="category-count" id="count-asia">50</span>
                 </button>
                 <button class="category-btn" data-category="europe">
-                    <span class="category-icon">🌍</span>
                     <span class="category-name">Europe</span>
                     <span class="category-count" id="count-europe">48</span>
                 </button>
                 <button class="category-btn" data-category="north-america">
-                    <span class="category-icon">🌎</span>
                     <span class="category-name">North America</span>
                     <span class="category-count" id="count-north-america">23</span>
                 </button>
                 <button class="category-btn" data-category="south-america">
-                    <span class="category-icon">🌎</span>
                     <span class="category-name">South America</span>
                     <span class="category-count" id="count-south-america">13</span>
                 </button>
                 <button class="category-btn" data-category="oceania">
-                    <span class="category-icon">🌏</span>
                     <span class="category-name">Oceania</span>
                     <span class="category-count" id="count-oceania">14</span>
                 </button>
                 <button class="category-btn" data-category="territories">
-                    <span class="category-icon">🏝️</span>
                     <span class="category-name">Territories</span>
                     <span class="category-count" id="count-territories">53</span>
                 </button>
             </div>
-            
+
             <!-- Multi-Region Selection -->
             <div class="multi-region-section">
-                <h3>🎯 Custom Quiz</h3>
+                <h3>Custom Quiz</h3>
                 <p>Select multiple regions to create your own quiz combination:</p>
-                
+
                 <div class="region-checkboxes">
                     <label class="region-checkbox">
                         <input type="checkbox" value="AF" id="region-af">
                         <span class="checkbox-custom"></span>
-                        <span class="region-label">🌍 Africa (<span id="multi-count-af">54</span>)</span>
+                        <span class="region-label">Africa (<span id="multi-count-af">54</span>)</span>
                     </label>
                     <label class="region-checkbox">
                         <input type="checkbox" value="AS" id="region-as">
                         <span class="checkbox-custom"></span>
-                        <span class="region-label">🌏 Asia (<span id="multi-count-as">47</span>)</span>
+                        <span class="region-label">Asia (<span id="multi-count-as">47</span>)</span>
                     </label>
                     <label class="region-checkbox">
                         <input type="checkbox" value="EU" id="region-eu">
                         <span class="checkbox-custom"></span>
-                        <span class="region-label">🌍 Europe (<span id="multi-count-eu">51</span>)</span>
+                        <span class="region-label">Europe (<span id="multi-count-eu">51</span>)</span>
                     </label>
                     <label class="region-checkbox">
                         <input type="checkbox" value="NA" id="region-na">
                         <span class="checkbox-custom"></span>
-                        <span class="region-label">🌎 North America (<span id="multi-count-na">23</span>)</span>
+                        <span class="region-label">North America (<span id="multi-count-na">23</span>)</span>
                     </label>
                     <label class="region-checkbox">
                         <input type="checkbox" value="SA" id="region-sa">
                         <span class="checkbox-custom"></span>
-                        <span class="region-label">🌎 South America (<span id="multi-count-sa">12</span>)</span>
+                        <span class="region-label">South America (<span id="multi-count-sa">12</span>)</span>
                     </label>
                     <label class="region-checkbox">
                         <input type="checkbox" value="OC" id="region-oc">
                         <span class="checkbox-custom"></span>
-                        <span class="region-label">🌏 Oceania (<span id="multi-count-oc">14</span>)</span>
+                        <span class="region-label">Oceania (<span id="multi-count-oc">14</span>)</span>
                     </label>
                     <label class="region-checkbox">
                         <input type="checkbox" value="TR" id="region-tr">
                         <span class="checkbox-custom"></span>
-                        <span class="region-label">🏝️ Territories (<span id="multi-count-tr">53</span>)</span>
+                        <span class="region-label">Territories (<span id="multi-count-tr">53</span>)</span>
                     </label>
                 </div>
-                
+
                 <div class="multi-region-controls">
                     <div class="multi-region-top-row">
                         <div class="selected-count">
@@ -171,4 +164,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
