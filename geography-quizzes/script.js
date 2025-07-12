@@ -598,6 +598,7 @@ class FlagQuiz {
 
     this.showCurrentFlag();
     this.updateNavigationButtons();
+    this.updateFlagGrid();
   }
 
   navigateToNextUnguessed() {
