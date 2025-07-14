@@ -486,13 +486,6 @@ header h1 {
   margin: 0 auto;
 }
 
-.flag-overview h4 {
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 1.3em;
-  font-weight: 600;
-}
-
 .flag-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
