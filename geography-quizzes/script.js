@@ -657,7 +657,11 @@ class FlagQuiz {
   }
 
   restartQuiz() {
-    Utils.toggleScreens('quiz-container', ['completion-screen']);
+    // Remove completion state and hide completion banner
+    const quizContainer = document.querySelector('.quiz-container');
+    if (quizContainer) quizContainer.classList.remove('quiz-completed');
+    Utils.hideElement('completion-banner');
+    
     this.startNewQuiz();
   }
 
@@ -798,15 +802,18 @@ class FlagQuiz {
   }
 
   showCompletionScreen() {
-    const finalScoreElement = document.getElementById('final-score');
-    const completionMessageElement = document.getElementById('completion-message');
-    const completionDetailsElement = document.getElementById('completion-details');
+    // Hide the quiz controls by adding a CSS class
+    const quizContainer = document.querySelector('.quiz-container');
+    if (quizContainer) quizContainer.classList.add('quiz-completed');
+
+    // Show completion banner
+    const completionBanner = document.getElementById('completion-banner');
+    const completionTitle = document.getElementById('completion-title');
+    const completionStats = document.getElementById('completion-stats');
 
     const correctlyGuessed = this.score;
     const skipped = this.skippedCountries.size;
     const total = this.countries.length;
-
-    finalScoreElement.textContent = total;
 
     // Create detailed statistics message
     let statsMessage = '';
@@ -839,16 +846,15 @@ class FlagQuiz {
         regionsText = regionList.slice(0, -1).join(', ') + ', and ' + regionList.slice(-1);
       }
 
-      completionMessageElement.innerHTML = `🎉 Quiz Complete! <span id="final-score">${total}</span> flags finished!`;
-      completionDetailsElement.innerHTML = `<strong>Custom quiz:</strong> ${regionsText}<br><strong>Stats:</strong> ${statsMessage}`;
-      Utils.showElement(completionDetailsElement);
+      completionTitle.textContent = `🎉 Custom Quiz Complete!`;
+      completionStats.innerHTML = `${regionsText}<br>${statsMessage}`;
     } else {
-      completionMessageElement.innerHTML = `🎉 Quiz Complete! <span id="final-score">${total}</span> flags finished!`;
-      completionDetailsElement.innerHTML = `<strong>Stats:</strong> ${statsMessage}`;
-      Utils.showElement(completionDetailsElement);
+      completionTitle.textContent = `🎉 Quiz Complete!`;
+      completionStats.textContent = statsMessage;
     }
 
-    Utils.toggleScreens('completion-screen', ['quiz-container']);
+    // Show the completion banner
+    Utils.showElement(completionBanner);
   }
 
   // Clean up resources to prevent memory leaks
@@ -1063,6 +1069,11 @@ class QuizManager {
   startQuiz(category) {
     // Hide menu, show quiz
     Utils.toggleScreens('quiz-container', ['category-selection']);
+    
+    // Remove completion state and hide completion banner (in case coming from completed quiz)
+    Utils.hideElement('completion-banner');
+    const quizContainer = document.querySelector('.quiz-container');
+    if (quizContainer) quizContainer.classList.remove('quiz-completed');
 
     // Update quiz title
     const title = CATEGORY_TITLES[category] || 'Quiz';
@@ -1075,6 +1086,11 @@ class QuizManager {
   // Show the category selection menu
   showMenu() {
     Utils.toggleScreens('category-selection', ['quiz-container', 'completion-screen']);
+    
+    // Hide completion banner and remove completion state for next quiz
+    Utils.hideElement('completion-banner');
+    const quizContainer = document.querySelector('.quiz-container');
+    if (quizContainer) quizContainer.classList.remove('quiz-completed');
 
     // Clean up current quiz
     if (this.currentQuiz) {
@@ -1093,6 +1109,11 @@ class QuizManager {
 
     // Hide menu, show quiz
     Utils.toggleScreens('quiz-container', ['category-selection']);
+    
+    // Remove completion state and hide completion banner (in case coming from completed quiz)
+    Utils.hideElement('completion-banner');
+    const quizContainer = document.querySelector('.quiz-container');
+    if (quizContainer) quizContainer.classList.remove('quiz-completed');
 
     // Create custom title
     const regionNames = {
