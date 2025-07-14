@@ -1,3 +1,51 @@
+// Constants to improve maintainability and reduce string duplication
+const CATEGORIES = {
+  ALL: 'all',
+  COUNTRIES: 'countries',
+  MULTI_REGION: 'multi-region'
+};
+
+const CATEGORY_TITLES = {
+  [CATEGORIES.ALL]: 'All Flags',
+  [CATEGORIES.COUNTRIES]: 'All Countries',
+  'africa': 'Africa',
+  'asia': 'Asia',
+  'europe': 'Europe',
+  'north-america': 'North America',
+  'south-america': 'South America',
+  'oceania': 'Oceania',
+  'territories': 'Territories',
+  [CATEGORIES.MULTI_REGION]: 'Multi-Region Quiz'
+};
+
+const REGION_CODES = {
+  'africa': 'AF',
+  'asia': 'AS', 
+  'europe': 'EU',
+  'north-america': 'NA',
+  'south-america': 'SA',
+  'oceania': 'OC',
+  'territories': 'TR'
+};
+
+// Utility functions to reduce code redundancy
+const Utils = {
+  showElement(elementId) {
+    const element = typeof elementId === 'string' ? document.getElementById(elementId) : elementId;
+    if (element) element.style.display = 'block';
+  },
+  
+  hideElement(elementId) {
+    const element = typeof elementId === 'string' ? document.getElementById(elementId) : elementId;
+    if (element) element.style.display = 'none';
+  },
+  
+  toggleScreens(showId, hideIds) {
+    this.showElement(showId);
+    hideIds.forEach(id => this.hideElement(id));
+  }
+};
+
 // Countries data - kept inline for compatibility with file:// protocol
 const countries = [
   { name: "Afghanistan", code: "af", region: ["AS"], alternatives: [] },
@@ -281,11 +329,11 @@ class FlagQuiz {
 
   // Filter countries by category
   filterCountriesByCategory(category, customRegions = null) {
-    if (category === 'all') {
+    if (category === CATEGORIES.ALL) {
       return [...this.allCountries];
     }
 
-    if (category === 'countries') {
+    if (category === CATEGORIES.COUNTRIES) {
       // Return all countries except territories (TR region)
       return this.allCountries.filter(country =>
         !country.region || !country.region.includes('TR')
@@ -308,16 +356,7 @@ class FlagQuiz {
 
   // Convert category slug to region code
   getCategoryRegionCode(category) {
-    const categoryMap = {
-      'africa': 'AF',
-      'asia': 'AS',
-      'europe': 'EU',
-      'north-america': 'NA',
-      'south-america': 'SA',
-      'oceania': 'OC',
-      'territories': 'TR'
-    };
-    return categoryMap[category] || 'AF';
+    return REGION_CODES[category] || 'AF';
   }
 
   // Pre-process all countries once on load - just store normalized versions
@@ -618,8 +657,7 @@ class FlagQuiz {
   }
 
   restartQuiz() {
-    this.completionScreen.style.display = 'none';
-    document.querySelector('.quiz-container').style.display = 'block';
+    Utils.toggleScreens('quiz-container', ['completion-screen']);
     this.startNewQuiz();
   }
 
@@ -803,15 +841,14 @@ class FlagQuiz {
 
       completionMessageElement.innerHTML = `🎉 Quiz Complete! <span id="final-score">${total}</span> flags finished!`;
       completionDetailsElement.innerHTML = `<strong>Custom quiz:</strong> ${regionsText}<br><strong>Stats:</strong> ${statsMessage}`;
-      completionDetailsElement.style.display = 'block';
+      Utils.showElement(completionDetailsElement);
     } else {
       completionMessageElement.innerHTML = `🎉 Quiz Complete! <span id="final-score">${total}</span> flags finished!`;
       completionDetailsElement.innerHTML = `<strong>Stats:</strong> ${statsMessage}`;
-      completionDetailsElement.style.display = 'block';
+      Utils.showElement(completionDetailsElement);
     }
 
-    this.completionScreen.style.display = 'block';
-    document.querySelector('.quiz-container').style.display = 'none';
+    Utils.toggleScreens('completion-screen', ['quiz-container']);
   }
 
   // Clean up resources to prevent memory leaks
@@ -1025,22 +1062,11 @@ class QuizManager {
   // Start a quiz with the selected category
   startQuiz(category) {
     // Hide menu, show quiz
-    document.getElementById('category-selection').style.display = 'none';
-    document.getElementById('quiz-container').style.display = 'block';
+    Utils.toggleScreens('quiz-container', ['category-selection']);
 
     // Update quiz title
-    const titles = {
-      'all': 'All Flags',
-      'countries': 'All Countries',
-      'africa': 'Africa',
-      'asia': 'Asia',
-      'europe': 'Europe',
-      'north-america': 'North America',
-      'south-america': 'South America',
-      'oceania': 'Oceania',
-      'territories': 'Territories & Dependencies'
-    };
-    document.getElementById('quiz-title').textContent = titles[category] || 'Quiz';
+    const title = CATEGORY_TITLES[category] || 'Quiz';
+    document.getElementById('quiz-title').textContent = title;
 
     // Start the quiz
     this.currentQuiz = new FlagQuiz(category);
@@ -1048,9 +1074,7 @@ class QuizManager {
 
   // Show the category selection menu
   showMenu() {
-    document.getElementById('category-selection').style.display = 'block';
-    document.getElementById('quiz-container').style.display = 'none';
-    document.getElementById('completion-screen').style.display = 'none';
+    Utils.toggleScreens('category-selection', ['quiz-container', 'completion-screen']);
 
     // Clean up current quiz
     if (this.currentQuiz) {
@@ -1068,8 +1092,7 @@ class QuizManager {
     const selectedCountries = this.getCountriesForRegions(selectedRegions);
 
     // Hide menu, show quiz
-    document.getElementById('category-selection').style.display = 'none';
-    document.getElementById('quiz-container').style.display = 'block';
+    Utils.toggleScreens('quiz-container', ['category-selection']);
 
     // Create custom title
     const regionNames = {
