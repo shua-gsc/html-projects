@@ -533,121 +533,7 @@ header h1 {
   color: white;
 }
 
-.completion-screen {
-  text-align: center;
-  padding: 80px 40px;
-  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 25%, #667eea 75%, #764ba2 100%);
-  background-size: 400% 400%;
-  animation: completionGradient 6s ease infinite;
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
-
-@keyframes completionGradient {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-.completion-screen::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 30m-20 0a20 20 0 1 1 40 0a20 20 0 1 1 -40 0'/%3E%3C/g%3E%3C/svg%3E") repeat;
-  pointer-events: none;
-  animation: patternFloat 20s linear infinite;
-}
-
-@keyframes patternFloat {
-  0% {
-    transform: translateX(0) translateY(0);
-  }
-
-  100% {
-    transform: translateX(-60px) translateY(-60px);
-  }
-}
-
-.completion-screen h2 {
-  font-size: 3em;
-  margin-bottom: 25px;
-  text-shadow:
-    2px 2px 4px rgba(0, 0, 0, 0.3),
-    0 0 30px rgba(255, 255, 255, 0.3);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  position: relative;
-  z-index: 1;
-  animation: celebrationBounce 2s ease-out;
-}
-
-@keyframes celebrationBounce {
-
-  0%,
-  100% {
-    transform: translateY(0) scale(1);
-  }
-
-  25% {
-    transform: translateY(-20px) scale(1.1);
-  }
-
-  50% {
-    transform: translateY(-10px) scale(1.05);
-  }
-
-  75% {
-    transform: translateY(-15px) scale(1.08);
-  }
-}
-
-.completion-screen p {
-  font-size: 1.4em;
-  margin-bottom: 35px;
-  position: relative;
-  z-index: 1;
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-.completion-screen .action-btn {
-  background: rgba(255, 255, 255, 0.95);
-  color: #4ecdc4;
-  font-size: 1.2em;
-  padding: 18px 35px;
-  font-weight: 600;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  margin: 0 10px;
-}
-
-.completion-screen .action-btn:hover {
-  background: rgba(255, 255, 255, 1);
-  transform: translateY(-3px);
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.2),
-    0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-#completion-details {
-  color: rgba(255, 255, 255, 0.9);
-  font-style: italic;
-  margin-top: 15px;
-  margin-bottom: 25px;
-  position: relative;
-  z-index: 1;
-  font-weight: 400;
-}
+/* Additional Quiz Styles */
 
 /* Enhanced Loading animation */
 .flag-display img {
@@ -1128,18 +1014,6 @@ header h1 {
     text-align: center;
   }
 
-  .completion-screen {
-    padding: 60px 20px;
-  }
-
-  .completion-screen h2 {
-    font-size: 2.2em;
-  }
-
-  .completion-screen p {
-    font-size: 1.2em;
-  }
-
   .multi-region-top-row {
     flex-direction: column;
     align-items: stretch;
@@ -1209,14 +1083,6 @@ header h1 {
 
   .category-name {
     font-size: 1.2em;
-  }
-
-  .completion-screen {
-    padding: 40px 15px;
-  }
-
-  .completion-screen h2 {
-    font-size: 1.8em;
   }
 }
 

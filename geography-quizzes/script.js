@@ -394,9 +394,7 @@ class FlagQuiz {
     this.prevBtn = document.getElementById('prev-btn');
     this.nextBtn = document.getElementById('next-btn');
     this.skipBtn = document.getElementById('skip-btn');
-    this.completionScreen = document.getElementById('completion-screen');
     this.restartBtn = document.getElementById('restart-btn');
-    this.finalScore = document.getElementById('final-score');
     this.flagGrid = document.getElementById('flag-grid');
   }
 
@@ -1085,7 +1083,7 @@ class QuizManager {
 
   // Show the category selection menu
   showMenu() {
-    Utils.toggleScreens('category-selection', ['quiz-container', 'completion-screen']);
+    Utils.toggleScreens('category-selection', ['quiz-container']);
     
     // Hide completion banner and remove completion state for next quiz
     Utils.hideElement('completion-banner');
