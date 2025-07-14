@@ -398,24 +398,34 @@ class FlagQuiz {
   }
 
   setupEventListeners() {
-    this.countryInput.addEventListener('input', (e) => this.handleInput(e));
-
-    this.prevBtn.addEventListener('click', () => this.navigateFlag(-1));
-    this.nextBtn.addEventListener('click', () => this.navigateFlag(1));
-    this.skipBtn.addEventListener('click', () => this.skipFlag());
-    this.restartBtn.addEventListener('click', () => this.restartQuiz());
+    // Store bound functions so we can remove them later
+    this.boundHandleInput = (e) => this.handleInput(e);
+    this.boundNavigatePrev = () => this.navigateFlag(-1);
+    this.boundNavigateNext = () => this.navigateFlag(1);
+    this.boundSkipFlag = () => this.skipFlag();
+    this.boundRestartQuiz = () => this.restartQuiz();
+    
+    this.countryInput.addEventListener('input', this.boundHandleInput);
+    this.prevBtn.addEventListener('click', this.boundNavigatePrev);
+    this.nextBtn.addEventListener('click', this.boundNavigateNext);
+    this.skipBtn.addEventListener('click', this.boundSkipFlag);
+    this.restartBtn.addEventListener('click', this.boundRestartQuiz);
 
     // Focus on input when page loads
     setTimeout(() => this.countryInput.focus(), 100);
   }
 
   startNewQuiz() {
-    // Shuffle the countries array 
-    this.shuffledCountries = [...this.countries].sort(() => Math.random() - 0.5);
+    // Completely reset all state - create new instances to avoid any reference issues
+    this.guessedCountries = new Set();
+    this.skippedCountries = new Set();
     this.currentCountryIndex = 0;
     this.score = 0;
-    this.guessedCountries.clear();
-    this.skippedCountries.clear();
+    
+    // Shuffle the countries array with a fresh copy
+    this.shuffledCountries = [...this.countries].sort(() => Math.random() - 0.5);
+    console.log('  shuffledCountries.length:', this.shuffledCountries.length);
+    console.log('  first few countries:', this.shuffledCountries.slice(0, 3).map(c => c.name));
 
     // Ensure all controls are enabled and cleared for the new quiz
     this.countryInput.disabled = false;
@@ -670,7 +680,18 @@ class FlagQuiz {
       return;
     }
 
+    // Ensure currentCountryIndex is valid for the unguessed countries array
+    if (this.currentCountryIndex >= unguessedCountries.length) {
+      this.currentCountryIndex = 0;
+    }
+
     const currentCountry = unguessedCountries[this.currentCountryIndex];
+    
+    if (!currentCountry) {
+      // Safety check - if we still don't have a valid country, something is wrong
+      console.error('No valid current country found');
+      return;
+    }
 
     // Mark as skipped
     this.skippedCountries.add(currentCountry.code);
@@ -850,9 +871,25 @@ class FlagQuiz {
     this.preloadedFlags.clear();
     this.isPreloading = false;
 
-    // Remove event listeners
-    if (this.countryInput) {
-      this.countryInput.removeEventListener('input', this.handleInput);
+    // Remove event listeners to prevent multiple instances responding to same events
+    if (this.countryInput && this.boundHandleInput) {
+      this.countryInput.removeEventListener('input', this.boundHandleInput);
+    }
+    
+    if (this.prevBtn && this.boundNavigatePrev) {
+      this.prevBtn.removeEventListener('click', this.boundNavigatePrev);
+    }
+    
+    if (this.nextBtn && this.boundNavigateNext) {
+      this.nextBtn.removeEventListener('click', this.boundNavigateNext);
+    }
+    
+    if (this.skipBtn && this.boundSkipFlag) {
+      this.skipBtn.removeEventListener('click', this.boundSkipFlag);
+    }
+    
+    if (this.restartBtn && this.boundRestartQuiz) {
+      this.restartBtn.removeEventListener('click', this.boundRestartQuiz);
     }
 
     // Cancel any pending image loads
