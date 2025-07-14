@@ -418,6 +418,12 @@ class FlagQuiz {
     this.guessedCountries.clear();
     this.skippedCountries.clear();
 
+    // Ensure all controls are enabled and cleared for the new quiz
+    this.countryInput.disabled = false;
+    this.skipBtn.disabled = false;
+    this.countryInput.value = '';
+    this.clearFeedback();
+
     this.createFlagGrid();
     this.showCurrentFlag();
     this.updateDisplay();
