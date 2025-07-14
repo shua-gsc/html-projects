@@ -272,7 +272,6 @@ class FlagQuiz {
 
     // Flag preloading cache
     this.preloadedFlags = new Map();
-    this.preloadQueue = [];
     this.isPreloading = false;
 
     this.initializeElements();
@@ -819,17 +818,11 @@ class FlagQuiz {
   cleanup() {
     // Clear preloaded flags cache
     this.preloadedFlags.clear();
-    this.preloadQueue = [];
     this.isPreloading = false;
 
     // Remove event listeners
     if (this.countryInput) {
       this.countryInput.removeEventListener('input', this.handleInput);
-    }
-
-    // Clear any pending timeouts
-    if (this.skipTimeout) {
-      clearTimeout(this.skipTimeout);
     }
 
     // Cancel any pending image loads
