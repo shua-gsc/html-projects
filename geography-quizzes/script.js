@@ -687,31 +687,17 @@ class FlagQuiz {
     // Update the flag grid to show the skipped state
     this.updateFlagGrid();
 
-    // Show the correct answer with a distinct style
-    this.feedback.textContent = `${currentCountry.name}`;
-    this.feedback.className = 'feedback skipped';
-
-    // Clear input and disable it temporarily
+    // Clear input
     this.countryInput.value = '';
-    this.countryInput.disabled = true;
-    this.skipBtn.disabled = true;
 
     // Check if quiz is complete after skipping this flag
     const remainingUnguessed = this.getUnguessedCountries();
     if (remainingUnguessed.length === 0) {
-      // Quiz is complete, show completion after a brief delay
-      setTimeout(() => {
-        this.showCompletionScreen();
-      }, 2500);
+      // Quiz is complete
+      this.showCompletionScreen();
     } else {
-      // Auto-advance to next flag after 2.5 seconds
-      setTimeout(() => {
-        this.clearFeedback();
-        this.countryInput.disabled = false;
-        this.skipBtn.disabled = false;
-        this.countryInput.focus();
-        this.navigateToNextUnguessed();
-      }, 2500);
+      // Navigate to next flag immediately
+      this.navigateToNextUnguessed();
     }
   }
 
