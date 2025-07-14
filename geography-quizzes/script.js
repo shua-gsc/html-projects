@@ -690,14 +690,23 @@ class FlagQuiz {
     this.countryInput.disabled = true;
     this.skipBtn.disabled = true;
 
-    // Auto-advance to next flag after 2.5 seconds
-    setTimeout(() => {
-      this.clearFeedback();
-      this.countryInput.disabled = false;
-      this.skipBtn.disabled = false;
-      this.countryInput.focus();
-      this.navigateToNextUnguessed();
-    }, 2500);
+    // Check if quiz is complete after skipping this flag
+    const remainingUnguessed = this.getUnguessedCountries();
+    if (remainingUnguessed.length === 0) {
+      // Quiz is complete, show completion after a brief delay
+      setTimeout(() => {
+        this.showCompletionScreen();
+      }, 2500);
+    } else {
+      // Auto-advance to next flag after 2.5 seconds
+      setTimeout(() => {
+        this.clearFeedback();
+        this.countryInput.disabled = false;
+        this.skipBtn.disabled = false;
+        this.countryInput.focus();
+        this.navigateToNextUnguessed();
+      }, 2500);
+    }
   }
 
   createFlagGrid() {
@@ -758,9 +767,9 @@ class FlagQuiz {
   updateDisplay() {
     const unguessedCount = this.getUnguessedCountries().length;
     const totalCount = this.countries.length;
-    const guessedCount = totalCount - unguessedCount;
     
-    this.scoreDisplay.textContent = `${guessedCount} / ${totalCount}`;
+    // Score should only show correctly guessed flags, not skipped ones
+    this.scoreDisplay.textContent = `${this.score} / ${totalCount}`;
     this.remainingDisplay.textContent = `${unguessedCount} remaining`;
   }
   
