@@ -388,7 +388,6 @@ class FlagQuiz {
   initializeElements() {
     this.flagImage = document.getElementById('flag-image');
     this.countryInput = document.getElementById('country-input');
-    this.feedback = document.getElementById('feedback');
     this.scoreDisplay = document.getElementById('score-display');
     this.remainingDisplay = document.getElementById('remaining-display');
     this.prevBtn = document.getElementById('prev-btn');
@@ -422,7 +421,6 @@ class FlagQuiz {
     this.countryInput.disabled = false;
     this.skipBtn.disabled = false;
     this.countryInput.value = '';
-    this.clearFeedback();
 
     this.createFlagGrid();
     this.showCurrentFlag();
@@ -456,9 +454,8 @@ class FlagQuiz {
       this.loadFlagImage(flagSources, 0, currentCountry.name);
     }
 
-    // Clear input and feedback
+    // Clear input
     this.countryInput.value = '';
-    this.clearFeedback();
     this.countryInput.focus();
 
     // Trigger preloading of next flags
@@ -576,9 +573,6 @@ class FlagQuiz {
   }
 
   handleInput(e) {
-    // Clear feedback when user starts typing
-    this.clearFeedback();
-
     // Check if the current input matches the correct answer
     this.checkAnswerRealtime();
   }
@@ -763,12 +757,6 @@ class FlagQuiz {
     // Score should only show correctly guessed flags, not skipped ones
     this.scoreDisplay.textContent = `${this.score} / ${totalCount}`;
     this.remainingDisplay.textContent = `${unguessedCount} remaining`;
-  }
-  
-  // Clear any feedback messages
-  clearFeedback() {
-    this.feedback.textContent = '';
-    this.feedback.className = 'feedback';
   }
   
   // Update navigation button states

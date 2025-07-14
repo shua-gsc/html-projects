@@ -344,84 +344,6 @@ header h1 {
   box-shadow: 0 10px 30px rgba(255, 167, 38, 0.4), 0 4px 15px rgba(255, 167, 38, 0.3);
 }
 
-.feedback {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.2em;
-  font-weight: 600;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  letter-spacing: 0.01em;
-}
-
-.feedback.correct {
-  color: #38a169;
-  background: linear-gradient(135deg, rgba(56, 161, 105, 0.1) 0%, rgba(72, 187, 120, 0.05) 100%);
-  border: 1px solid rgba(56, 161, 105, 0.2);
-  animation: correctPulse 0.6s ease-out;
-}
-
-.feedback.incorrect {
-  color: #e53e3e;
-  background: linear-gradient(135deg, rgba(229, 62, 62, 0.1) 0%, rgba(245, 101, 101, 0.05) 100%);
-  border: 1px solid rgba(229, 62, 62, 0.2);
-  animation: incorrectShake 0.6s ease-out;
-}
-
-.feedback.skipped {
-  color: #dd6b20;
-  background: linear-gradient(135deg, rgba(221, 107, 32, 0.1) 0%, rgba(237, 137, 54, 0.05) 100%);
-  border: 1px solid rgba(221, 107, 32, 0.2);
-  font-size: 1.3em;
-  animation: skippedBounce 0.6s ease-out;
-}
-
-@keyframes correctPulse {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes incorrectShake {
-
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  25% {
-    transform: translateX(-8px);
-  }
-
-  75% {
-    transform: translateX(8px);
-  }
-}
-
-@keyframes skippedBounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
 .controls {
   display: flex;
   justify-content: center;
@@ -563,7 +485,6 @@ header h1 {
 
 /* Smooth transitions for dynamic content */
 .progress-section,
-.feedback,
 .input-section,
 .controls {
   animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
